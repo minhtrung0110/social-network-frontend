@@ -44,7 +44,7 @@ const LeftSideBar: React.FC<Props> = props => {
     // navigate(ROUTES.LOGIN.path);
   };
   const { theme, setTheme } = useTheme();
-  console.log(theme);
+
   return (
     <nav className="left-sidebar ">
       <Link href={ROUTES.SNAP_GRAM.path} className="flex h-[100px] items-center mb-2">
@@ -54,8 +54,6 @@ const LeftSideBar: React.FC<Props> = props => {
         <ul className="flex flex-col gap-4">
           {LEFT_SIDE_BAR_LINK.map((link: INavLink) => {
             const isActive = pathname === link.route;
-            console.log(link.route, pathname);
-
             return (
               <MenuItemWrapper
                 key={link.label}

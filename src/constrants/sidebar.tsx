@@ -51,6 +51,34 @@ export const LEFT_SIDE_BAR_LINK: INavLink[] = [
     label: 'Create',
   },
 ];
+export const BOTTOM_SIDE_BAR_LINK: INavLink[] = [
+  {
+    icon: HomeIcon,
+    route: '/',
+    label: 'Home',
+  },
+
+  {
+    icon: MagnifyingGlassIcon,
+    route: 'search',
+    label: 'Search',
+  },
+  {
+    icon: RocketIcon,
+    route: 'explore',
+    label: 'Explore',
+  },
+  {
+    icon: PaperPlaneIcon,
+    route: 'message',
+    label: 'Message',
+  },
+  {
+    icon: HeartIcon,
+    route: 'notifications',
+    label: 'Notifications',
+  },
+];
 
 export const MORE_SIDEBAR = [
   {
