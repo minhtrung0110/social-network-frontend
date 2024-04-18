@@ -1,7 +1,11 @@
 // Libraries
 // @ts-ignore
 import React from 'react';
+import Image from 'next/image';
 import { GoogleIcon } from '@/components/atoms/icons';
+import { ROUTES } from '@/constrants/route';
+import Link from 'next/link';
+import SignupForm from '@/app/(auth)/components/organisms/SignupForm';
 
 // Component
 
@@ -15,65 +19,72 @@ interface Props {
 }
 
 const SignUpPage: React.FC<Props> = (props) => {
+  const handleSubmit = () => {
+
+  };
   return (
-    <div className='w-full space-y-6 text-gray-600 sm:max-w-md'>
-      <div className='text-center'>
-        <img src='https://floatui.com/logo.svg' width={150} className='mx-auto' />
-        <div className='mt-5 space-y-2'>
-          <h3 className='text-gray-800 text-2xl font-bold sm:text-3xl'>Create an account</h3>
-          <p className=''>Already have an account? <a href='javascript:void(0)'
-                                                      className='font-medium text-indigo-600 hover:text-indigo-500'>Log
-            in</a></p>
+    <div className={'w-full flex'}>
+      <div className='relative flex-1 hidden items-center justify-center h-screen bg-gray-900 lg:flex'>
+        <div className='relative z-10 w-full max-w-md'>
+          <Image src='/assets/logo.svg' alt='logo' width={380} height={255} />
+          <div className=' mt-16 space-y-3'>
+            <h3 className='text-white text-3xl font-bold'>Join now !</h3>
+            <p className='text-gray-300'>
+              SnapGram is a social media platform inspired by Instagram, allowing users to share moments and connect
+              with friends in real-time.
+            </p>
+            <div className='flex items-center -space-x-2 overflow-hidden'>
+              <Image src='/assets/signup01.jpg' alt={'i1'}
+                     width={20} height={20}
+                     className='w-10 h-10 rounded-full border-2 border-white' />
+              <Image src='/assets/signup04.jpg' alt={'i1'}
+                     width={20} height={20}
+                     className='w-10 h-10 rounded-full border-2 border-white' />
+              <Image src='/assets/signup02.jpg' alt={'i1'}
+                     width={20} height={20}
+                     className='w-10 h-10 rounded-full border-2 border-white' />
+              <Image src='/assets/signup03.jpg' alt={'i1'}
+                     width={20} height={20}
+                     className='w-10 h-10 rounded-full border-2 border-white' />
+
+              <p className='text-sm text-gray-400 font-medium translate-x-5'>
+                Join 5.000+ users
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          className='absolute inset-0 my-auto h-[500px]'
+          style={{
+            background: 'linear-gradient(152.92deg, rgba(192, 132, 252, 0.2) 4.54%, rgba(232, 121, 249, 0.26) 34.2%, rgba(192, 132, 252, 0.1) 77.55%)',
+            filter: 'blur(118px)',
+          }}
+        >
+
         </div>
       </div>
-      <div className='bg-white shadow p-4 py-6 sm:p-6 sm:rounded-lg'>
-        <form
-          // onSubmit={(e) => e.preventDefault()}
-          className='space-y-5'
-
-        >
-          <div>
-            <label className='font-medium'>
-              Name
-            </label>
-            <input
-              type='text'
-              required
-              className='w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg'
-            />
+      <div className='flex-1 flex items-center justify-center h-screen'>
+        <div className='w-full max-w-md space-y-6 px-4 bg-white text-gray-600 sm:px-0'>
+          <div className=''>
+            <div className='mt-0'>
+              <h3 className='text-gray-800 text-xl font-bold sm:text-3xl'>Sign up</h3>
+              <p className=''>Already have an account? <Link href={ROUTES.login.path}
+                                                             className='font-medium text-indigo-600 hover:text-indigo-500'>Log
+                in</Link></p>
+            </div>
           </div>
-          <div>
-            <label className='font-medium'>
-              Email
-            </label>
-            <input
-              type='email'
-              required
-              className='w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg'
-            />
+          <div className='grid grid-cols-1 gap-x-1'>
+            <button
+              className='flex items-center justify-center py-2 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100'>
+              <GoogleIcon />
+            </button>
           </div>
-          <div>
-            <label className='font-medium'>
-              Password
-            </label>
-            <input
-              type='password'
-              required
-              className='w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg'
-            />
+          <div className='relative'>
+            <span className='block w-full h-px bg-gray-300'></span>
+            <p className='inline-block w-fit text-sm bg-white px-2 absolute -top-2 inset-x-0 mx-auto'>Or continue
+              with</p>
           </div>
-          <button
-            className='w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150'
-          >
-            Create account
-          </button>
-        </form>
-        <div className='mt-5'>
-          <button
-            className='w-full flex items-center justify-center gap-x-3 py-2.5 mt-5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100'>
-            <GoogleIcon />
-            Continue with Google
-          </button>
+          <SignupForm />
         </div>
       </div>
     </div>

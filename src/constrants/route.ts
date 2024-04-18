@@ -13,6 +13,7 @@ export const ROUTES = {
     exact: true,
     isPrivate: false,
   },
+ 
   SNAP_GRAM: {
     key: 'snap-gram',
     name: 'Snap Gram',
