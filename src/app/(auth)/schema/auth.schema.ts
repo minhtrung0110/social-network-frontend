@@ -87,6 +87,14 @@ export const SignInRespond = z.object({
   message: z.string(),
 });
 
+export const RenewSession = z.object({
+  status: z.number(),
+  data: z.object({
+    expiresAt: z.number(),
+  }),
+  message: z.string(),
+});
+
 export type SignUpRespondType = z.TypeOf<typeof SignUpRespond>;
 
 export const LoginBody = z
@@ -102,6 +110,6 @@ export type LoginResType = z.TypeOf<typeof SignInRespond>;
 export const SlideSessionBody = z.object({}).strict();
 
 export type SlideSessionBodyType = z.TypeOf<typeof SlideSessionBody>;
-export const SlideSessionRes = SignUpRespond;
+export const SlideSessionRes = RenewSession;
 
 export type SlideSessionResType = z.TypeOf<typeof SlideSessionRes>;

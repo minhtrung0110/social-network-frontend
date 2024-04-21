@@ -9,7 +9,7 @@ export const AccountRes = z
       firstName: z.string(),
       lastName: z.string(),
       email: z.string(),
-      avatar: z.string(),
+      avatar: z.string().nullable(),
     }),
     message: z.string(),
   })
