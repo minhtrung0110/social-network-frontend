@@ -1,7 +1,7 @@
-import { redirect } from 'next/navigation';
 import envConfig from '@/config/config';
 import { normalizePath } from '@/_lib/utils';
-import { LoginResType } from '@/app/(auth)/schema/auth.schema';
+import { LoginResType } from '@/schema/auth.schema';
+import { redirect } from 'next/navigation';
 
 type CustomOptions = Omit<RequestInit, 'method'> & {
   baseUrl?: string | undefined;
@@ -76,7 +76,7 @@ export const clientSessionToken = new SessionToken();
 let clientLogoutRequest: null | Promise<any> = null;
 
 const request = async <Response>(
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE',
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
   url: string,
   options?: CustomOptions | undefined,
 ) => {
@@ -101,6 +101,7 @@ const request = async <Response>(
     options?.baseUrl === undefined ? envConfig.NEXT_PUBLIC_API_ENDPOINT : options.baseUrl;
 
   const fullUrl = url.startsWith('/') ? `${baseUrl}${url}` : `${baseUrl}/${url}`;
+  console.log('baseUrl: ' + fullUrl);
 
   const res = await fetch(fullUrl, {
     ...options,
@@ -140,11 +141,13 @@ const request = async <Response>(
           clientSessionToken.value = '';
           clientSessionToken.expiresAt = new Date().toISOString();
           clientLogoutRequest = null;
-          location.href = '/login';
+          //location.href = '/sign-in';
         }
       } else {
+        // auto logout when token is expired
         const sessionToken = (options?.headers as any)?.Authorization.split('Bearer ')[1];
-        redirect(`/logout?sessionToken=${sessionToken}`);
+        console.log('Session token was redirected to ' + sessionToken);
+        redirect(`/sign-out?sessionToken=${sessionToken}`);
       }
     } else {
       throw new HttpError(data);
@@ -152,15 +155,18 @@ const request = async <Response>(
   }
   // Đảm bảo logic dưới đây chỉ chạy ở phía client (browser)
   if (typeof window !== 'undefined') {
+    console.log('Chay logic setToken', url, clientSessionToken);
     if (['auth/login', 'auth/register'].some(item => item === normalizePath(url))) {
-      clientSessionToken.value = (payload as LoginResType).data.token;
+      console.log('set Token =value');
+      clientSessionToken.value = (payload as LoginResType).data.accessToken;
       clientSessionToken.expiresAt = (payload as LoginResType).data.expiresAt;
-    } else if ('auth/logout' === normalizePath(url)) {
+    } else if ('auth/sign-out' === normalizePath(url)) {
+      console.log('Xoa Token rong');
       clientSessionToken.value = '';
       clientSessionToken.expiresAt = new Date().toISOString();
     }
   }
-  return { status: data.status, data: data.payload.data, message: '' };
+  return { status: data.payload.status, data: data.payload.data, message: data.payload.message };
 };
 
 const http = {
@@ -172,6 +178,9 @@ const http = {
   },
   put<Response>(url: string, body: any, options?: Omit<CustomOptions, 'body'> | undefined) {
     return request<Response>('PUT', url, { ...options, body });
+  },
+  patch<Response>(url: string, body: any, options?: Omit<CustomOptions, 'body'> | undefined) {
+    return request<Response>('PATCH', url, { ...options, body });
   },
   delete<Response>(url: string, options?: Omit<CustomOptions, 'body'> | undefined) {
     return request<Response>('DELETE', url, { ...options });
