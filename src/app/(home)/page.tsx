@@ -1,5 +1,9 @@
 // Libraries
-import React from 'react';
+import React, { Suspense } from 'react';
+import HomeFeed from '@/app/(home)/components/organisms/HomeFeed';
+import { cookies } from 'next/headers';
+import postApiRequest from '@/api/post';
+import Loader from '@/components/atoms/Loader';
 
 // Component
 
@@ -12,26 +16,23 @@ interface Props {
   // Define your component's props here
 }
 
-const HomePage: React.FC<Props> = (props) => {
+const HomePage: React.FC<Props> = async (props) => {
   const isPostLoading = true;
+  const cookieStore = cookies();
+  const sessionToken = cookieStore.get('sessionToken');
+  // @ts-ignore
+  const result = await postApiRequest.getList(sessionToken?.value ?? '');
+  console.log('Posts', result);
+
+
   return (
     <div>
       Home Page
       <div className={'home-container'}>
-        <div className='home-posts'>
-          <h2 className='h3-bold md:h2-bold text-left w-full'>Home Feed</h2>
-          {/*{isPostLoading && !posts ? (*/}
-          {/*  <Loader />*/}
-          {/*) : (*/}
-          {/*  <ul className='flex flex-col flex-1 gap-9 w-full '>*/}
-          {/*    {posts?.documents.map((post) => (*/}
-          {/*      <li key={post.$id} className='flex justify-center w-full'>*/}
-          {/*        <PostCard post={post} />*/}
-          {/*      </li>*/}
-          {/*    ))}*/}
-          {/*  </ul>*/}
-          {/*)}*/}
-        </div>
+        <Suspense fallback={<Loader />}>
+          <HomeFeed data={result.data} />
+        </Suspense>
+
       </div>
       <div className={'home-creators'}>
         Creator

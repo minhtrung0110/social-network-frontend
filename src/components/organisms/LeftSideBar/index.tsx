@@ -16,9 +16,12 @@ import { INavLink } from '@/types/snapgram';
 // Constraint
 import { LEFT_SIDE_BAR_LINK, MORE_SIDEBAR } from '@/constrants/sidebar';
 import { ROUTES } from '@/constrants/route';
+import Image from 'next/image';
+import { UserAuth } from '@/types/user';
+import { useGlobalState } from '@/store/zustand';
 
-interface Props {
-  // Define your component's props here
+interface LeftSideBarProps {
+  user: UserAuth | null;
 }
 
 export const MenuItemWrapper = styled.li`
@@ -29,9 +32,15 @@ export const MenuItemWrapper = styled.li`
   }
 `;
 
-const LeftSideBar: React.FC<Props> = props => {
+const LeftSideBar: React.FC<LeftSideBarProps> = props => {
   // const navigate = useNavigate();
+  const { user } = props;
   const pathname = usePathname();
+  // Global State
+  const setUser = useGlobalState(state => state.setUser);
+  if (user) {
+    setUser(user);
+  }
   //const { user, setUser, setIsAuthenticated, isLoading } = useUserContext();
 
   //const { mutate: signOut } = useSignOutAccount();
@@ -44,11 +53,12 @@ const LeftSideBar: React.FC<Props> = props => {
     // navigate(ROUTES.LOGIN.path);
   };
   const { theme, setTheme } = useTheme();
-
+  const timezoneOffset = new Date().getTimezoneOffset();
+  //console.log(timezoneOffset);
   return (
     <nav className="left-sidebar ">
       <Link href={ROUTES.SNAP_GRAM.path} className="flex h-[100px] items-center mb-2">
-        <img src="/assets/logo.svg" alt="logo" width={210} height={105} />
+        <Image src="/assets/logo.svg" alt="logo" width={210} height={105} />
       </Link>
       <div className="flex flex-col gap-4 overflow-auto max-h-[480px]">
         <ul className="flex flex-col gap-4">
@@ -70,14 +80,16 @@ const LeftSideBar: React.FC<Props> = props => {
       </div>
       <div className="flex flex-col mt-5 gap-2 cursor-pointer sticky bottom-0">
         <Link
-          href={ROUTES.PROFILE.path}
-          className={`left-sidebar-link group flex justify-items-start items-center px-5 ${pathname === ROUTES.PROFILE.path && 'bg-primary-500'}`}
+          href={`/${ROUTES.PROFILE.key}/${user?.id}`}
+          className={`left-sidebar-link group flex justify-items-start items-center px-5 ${pathname.startsWith(ROUTES.PROFILE.path) && 'bg-primary-500'}`}
         >
           <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>MT</AvatarFallback>
+            <AvatarImage src={user?.avatar || 'https://github.com/shadcn.png'} alt="@shadcn" />
+            <AvatarFallback>{user?.firstName?.slice(0, 1)}</AvatarFallback>
           </Avatar>
-          <div className={'flex gap-4 items-center p-4'}>Minh Trung</div>
+          <div className={'flex gap-4 max-w-[140px] items-center truncate p-4'}>
+            {user?.username}
+          </div>
         </Link>
         <DropdownAdvance
           menuTrigger={
