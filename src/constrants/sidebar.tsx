@@ -1,7 +1,6 @@
 import { INavLink } from '@/types/snapgram';
 import { GearIcon } from '@/components/atoms/icons/GearIcon';
 import { MoonIcon } from '@/components/atoms/icons/MoonIcon';
-import { PinLeft } from '@/components/atoms/icons/PinLeft';
 import {
   BookmarkIcon,
   CaretLeftIcon,
@@ -111,11 +110,11 @@ export const MORE_SIDEBAR = [
       },
     ],
   },
-  {
-    icon: PinLeft,
-    label: 'Logout',
-    key: 'logout',
-    children: null,
-  },
+  // {
+  //   icon: PinLeft,
+  //   label: 'Logout',
+  //   key: 'sign-out',
+  //   children: null,
+  // },
 ];
 // If item is header, it would not have a children property. And field Label is not empty
