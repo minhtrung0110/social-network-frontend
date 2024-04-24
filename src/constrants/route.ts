@@ -1,3 +1,10 @@
+export type SNRoute = {
+  key: string;
+  name: string;
+  path: string;
+  exact: boolean;
+  isPrivate: boolean;
+};
 export const ROUTES = {
   login: {
     key: 'sign-in',
@@ -13,7 +20,7 @@ export const ROUTES = {
     exact: true,
     isPrivate: false,
   },
- 
+
   SNAP_GRAM: {
     key: 'snap-gram',
     name: 'Snap Gram',
@@ -27,41 +34,47 @@ export const ROUTES = {
     name: 'Home',
     path: '/',
     exact: false,
+    isPrivate: true,
   },
   EXPLORE: {
     key: 'explore',
     name: 'Explore',
     path: '/explore',
     exact: false,
+    isPrivate: true,
   },
   SAVED: {
     key: 'saved',
     name: 'Saved',
     path: '/saved',
     exact: false,
+    isPrivate: true,
   },
   ALL_USERS: {
     key: 'all-users',
     name: 'All Users',
     path: '/all-users',
     exact: false,
+    isPrivate: true,
   },
   CREATE_POST: {
     key: 'create-post',
     name: 'Create Post',
     path: '/create-post',
     exact: false,
+    isPrivate: true,
   },
   UPDATE_POST: {
     key: 'update-post',
     name: 'Update Post',
     path: '/update-post/:id',
     exact: false,
+    isPrivate: true,
   },
   PROFILE: {
     key: 'profile',
     name: 'Profile',
-    path: '/profile/:id/',
+    path: '/profile/:id',
     exact: false,
   },
 
@@ -70,12 +83,14 @@ export const ROUTES = {
     name: 'Update Profile',
     path: '/update-profile/:id',
     exact: false,
+    isPrivate: true,
   },
   POST_DETAIL: {
     key: 'post-detail',
     name: 'Post Detail',
     path: '/posts/:id',
     exact: false,
+    isPrivate: true,
   },
   /*-----------MORE-------------------*/
   NOT_FOUND: {
