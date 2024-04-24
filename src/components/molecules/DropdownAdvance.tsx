@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useTheme } from 'next-themes';
+import ButtonLogout from '@/app/(auth)/components/molecules/ButtonLogout';
 
 // Component
 
@@ -60,6 +61,7 @@ const DropdownAdvance: React.FC<DropdownAdvanceProps> = props => {
               </div>
             );
           })}
+          <ButtonLogout />
         </div>
         {/*SubMenu*/}
         {menus.map(
@@ -94,6 +96,7 @@ const DropdownAdvance: React.FC<DropdownAdvanceProps> = props => {
                     </div>
                   );
                 })}
+
               </div>
             ),
         )}
