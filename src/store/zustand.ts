@@ -1,18 +1,21 @@
 import { create } from 'zustand';
+import { UserAuth } from '@/types/user';
 
 type State = {
   count: number;
   sessionToken: string;
+  user: UserAuth | undefined;
 };
 
 type Actions = {
-  increment: (qty: number) => void;
-  decrement: (qty: number) => void;
+  setUser: (user: UserAuth) => void;
+  setSessionToken: (token: string) => void;
 };
 
-const useCountStore = create<State & Actions>(set => ({
+export const useGlobalState = create<State & Actions>(set => ({
   count: 0,
   sessionToken: '',
-  increment: (qty: number) => set(state => ({ count: state.count + qty })),
-  decrement: (qty: number) => set(state => ({ count: state.count - qty })),
+  user: undefined,
+  setUser: (user: UserAuth) => set(() => ({ user: user })),
+  setSessionToken: (token: string) => set(() => ({ sessionToken: token })),
 }));

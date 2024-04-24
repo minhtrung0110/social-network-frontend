@@ -1,6 +1,6 @@
 // Libraries
 import React from 'react';
-import Image from 'next/image';
+import { SpinnerIcon } from '@/components/atoms/icons';
 
 // Component
 
@@ -9,21 +9,33 @@ import Image from 'next/image';
 // Types
 
 interface Props {
-  // Define your component's props here
+  size?: 's' | 'm' | 'l' | 'x' | 'xl';
 }
 
-const Loader: React.FC<Props> = () => {
+const Loader: React.FC<Props> = (props) => {
+  const { size } = props;
+  const handleSize = (size: any) => {
+    switch (size) {
+      case 's':
+        return 20;
+      case 'm':
+        return 28;
+      case 'l':
+        return 38;
+      case 'x':
+        return 48;
+      case 'xl':
+        return 60;
+      default:
+        return 80;
+    }
+  };
   return (
-    <div className='flex-center w-full'>
-      <Image
-        src='/assets/logo.png'
-        alt='loader'
-        width={100}
-        height={100}
-        className='animate-spin'
-      />
-    </div>
+    <SpinnerIcon width={handleSize(size)} height={handleSize(size)} className='animate-spin ' />
   );
 };
 
 export default Loader;
+Loader.defaultProps = {
+  size: 's',
+};

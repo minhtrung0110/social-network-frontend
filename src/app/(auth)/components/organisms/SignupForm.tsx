@@ -13,7 +13,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
-import { formSignupSchema } from '@/app/(auth)/schema/auth.schema';
+import { formSignupSchema } from '@/schema/auth.schema';
 import { toast } from '@/components/ui/use-toast';
 import authApiRequest from '@/api/auth';
 import { usePathname, useRouter } from 'next/navigation';

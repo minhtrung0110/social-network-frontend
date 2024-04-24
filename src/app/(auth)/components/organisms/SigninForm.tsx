@@ -14,9 +14,11 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import authApiRequest from '@/api/auth';
-import { toast } from '@/components/ui/use-toast';
+
 import { useRouter } from 'next/navigation';
 import { handleErrorApi } from '@/_lib/utils';
+import { useToast } from '@/components/ui/use-toast';
+import { useGlobalState } from '@/store/zustand';
 
 // Component
 
@@ -45,30 +47,40 @@ type formSignInSchemaType = z.infer<typeof formSignInSchema>;
 const SignInForm: React.FC<Props> = props => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-
+  const setSessionToken = useGlobalState(state => state.setSessionToken);
+  const { toast } = useToast();
   const form = useForm<formSignInSchemaType>({
     resolver: zodResolver(formSignInSchema),
     mode: 'onSubmit',
   });
   const onSignIn = async (data: formSignInSchemaType) => {
-    console.log('Sign-in data: ', data);
-    // Call API
     if (loading) return;
     setLoading(true);
+
     try {
-      const result = await authApiRequest.login(data);
-      console.log('Result login: ', result);
-      // call into server side
-      await authApiRequest.auth({
-        sessionToken: result.data.accessToken,
-        expiresAt: result.data.expiresAt,
-      });
-      toast({
-        description: result.message,
-      });
-      router.push('/');
-      router.refresh();
+      const res = await authApiRequest.login(data);
+      if (res.status === 200) {
+        // call into server side
+        await authApiRequest.auth({
+          sessionToken: res.data.accessToken,
+          expiresAt: res.data.expiresAt,
+        });
+        setSessionToken(res.data.accessToken);
+        toast({
+          description: res.message,
+        });
+        setTimeout(() => {
+          router.push('/');
+          router.refresh();
+        }, 1000);
+      } else {
+        toast({
+          description: res.message,
+          variant: 'destructive',
+        });
+      }
     } catch (error: any) {
+      //console.log(error);
       handleErrorApi({
         error,
         setError: form.setError,

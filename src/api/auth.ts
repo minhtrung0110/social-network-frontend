@@ -5,7 +5,9 @@ import {
   LoginResType,
   SignUpBodyType,
   SignUpRespondType,
-} from '@/app/(auth)/schema/auth.schema';
+  SlideSessionResType,
+} from '@/schema/auth.schema';
+import { ApiResType } from '@/schema/comon.schema';
 
 const authApiRequest = {
   login: (body: LoginBodyType) => http.post<LoginResType>('/auth/login', body),
@@ -18,42 +20,42 @@ const authApiRequest = {
     http.post('/api/auth', body, {
       baseUrl: '',
     }),
-  // logoutFromNextServerToServer: (sessionToken: string) =>
-  //   http.post<MessageResType>(
-  //     '/auth/logout',
-  //     {},
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${sessionToken}`,
-  //       },
-  //     },
-  //   ),
-  // logoutFromNextClientToNextServer: (
-  //   force?: boolean | undefined,
-  //   signal?: AbortSignal | undefined,
-  // ) =>
-  //   http.post<MessageResType>(
-  //     '/api/auth/logout',
-  //     {
-  //       force,
-  //     },
-  //     {
-  //       baseUrl: '',
-  //       signal,
-  //     },
-  //   ),
-  // slideSessionFromNextServerToServer: (sessionToken: string) =>
-  //   http.post<SlideSessionResType>(
-  //     '/auth/slide-session',
-  //     {},
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${sessionToken}`,
-  //       },
-  //     },
-  //   ),
-  // slideSessionFromNextClientToNextServer: () =>
-  //   http.post<SlideSessionResType>('/api/auth/slide-session', {}, { baseUrl: '' }),
+  logoutFromNextServerToServer: (sessionToken: string) =>
+    http.post<ApiResType>(
+      '/auth/logout',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${sessionToken}`,
+        },
+      },
+    ),
+  logoutFromNextClientToNextServer: (
+    force?: boolean | undefined,
+    signal?: AbortSignal | undefined,
+  ) =>
+    http.post<ApiResType>(
+      '/api/auth/sign-out',
+      {
+        force,
+      },
+      {
+        baseUrl: '',
+        signal,
+      },
+    ),
+  slideSessionFromNextServerToServer: (sessionToken: string) =>
+    http.post<SlideSessionResType>(
+      '/auth/renewal-session',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${sessionToken}`,
+        },
+      },
+    ),
+  slideSessionFromNextClientToNextServer: () =>
+    http.post<SlideSessionResType>('/api/auth/renew-session', {}, { baseUrl: '' }),
 };
 
 export default authApiRequest;
