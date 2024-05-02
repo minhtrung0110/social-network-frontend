@@ -1,25 +1,16 @@
 import { HttpError } from '@/utils/http';
-import userApiRequest from '@/api/user';
+import likeApiRequest from '@/api/like';
 import { cookies } from 'next/headers';
 
-export async function PATCH(request: Request, { params }: { params: { id: number } }) {
-  const id = params.id;
+export async function POST(request: Request) {
   const body = await request.json();
   const cookieStore = cookies();
   const sessionToken = cookieStore.get('sessionToken');
-  try {
-    const res = await userApiRequest.updateUser(id, body, sessionToken?.value ?? '');
 
-    if (res.status === 200)
-      return Response.json(
-        {
-          status: res.status,
-          data: res.data,
-          message: 'Update Done',
-        },
-        { status: 200 },
-      );
-    else return Response.json({ data: res.data }, { status: 300 });
+  try {
+    const res = await likeApiRequest.create(body, sessionToken?.value ?? '');
+
+    return Response.json(res);
   } catch (error) {
     if (error instanceof HttpError) {
       return Response.json(

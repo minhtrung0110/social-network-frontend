@@ -8,18 +8,8 @@ export async function PATCH(request: Request, { params }: { params: { id: number
   const cookieStore = cookies();
   const sessionToken = cookieStore.get('sessionToken');
   try {
-    const res = await userApiRequest.updateUser(id, body, sessionToken?.value ?? '');
-
-    if (res.status === 200)
-      return Response.json(
-        {
-          status: res.status,
-          data: res.data,
-          message: 'Update Done',
-        },
-        { status: 200 },
-      );
-    else return Response.json({ data: res.data }, { status: 300 });
+    const res = await userApiRequest.updateUserName(id, body, sessionToken?.value ?? '');
+    return Response.json(res);
   } catch (error) {
     if (error instanceof HttpError) {
       return Response.json(

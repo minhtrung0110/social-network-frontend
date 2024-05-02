@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import authApiRequest from '@/api/auth';
-import { HttpError } from '@/_lib/http';
+import { HttpError } from '@/utils/http';
 
 export async function POST(request: Request) {
   const res = await request.json();

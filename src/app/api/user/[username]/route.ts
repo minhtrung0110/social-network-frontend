@@ -1,10 +1,10 @@
 import { cookies } from 'next/headers';
-import authApiRequest from '@/api/auth';
 import { HttpError } from '@/utils/http';
+import userApiRequest from '@/api/user';
 
-export async function POST(request: Request) {
-  const cookieStore = cookies();
-  const sessionToken = cookieStore.get('sessionToken');
+export async function GET(request: Request, { params }: { params: { username: string } }) {
+  const cookie = cookies();
+  const sessionToken = cookie.get('sessionToken');
   if (!sessionToken) {
     return Response.json(
       { message: 'Can not get session token' },
@@ -14,13 +14,9 @@ export async function POST(request: Request) {
     );
   }
   try {
-    const res = await authApiRequest.slideSessionFromNextServerToServer(sessionToken.value);
-    const newExpiresDate = new Date(res.data.expiresAt.slice(0, -1));
+    const res = await userApiRequest.searchUser({ ...params }, sessionToken.value);
     return Response.json(res, {
       status: 200,
-      headers: {
-        'Set-Cookie': `sessionToken=${sessionToken.value}; Path=/; HttpOnly; Expires=${newExpiresDate}; SameSite=Lax; Secure`,
-      },
     });
   } catch (error) {
     if (error instanceof HttpError) {

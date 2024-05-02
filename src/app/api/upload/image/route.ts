@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { HttpError } from '@/_lib/http';
+import { HttpError } from '@/utils/http';
 import uploadApiRequest from '@/api/upload';
 
 export async function POST(request: Request) {
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     );
   }
   try {
-    const res = await uploadApiRequest.uploadImage(formData, sessionToken.value);
+    const res = await uploadApiRequest.uploadImageAuth(formData, sessionToken.value ?? '');
     if (res.status === 200) {
       return Response.json(
         { status: 200, data: res.data, message: 'Upload successfully' },

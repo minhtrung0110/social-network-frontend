@@ -1,21 +1,28 @@
-import { HttpError } from '@/utils/http';
-import userApiRequest from '@/api/user';
 import { cookies } from 'next/headers';
+import { HttpError } from '@/utils/http';
+import postApiRequest from '@/api/post';
 
-export async function PATCH(request: Request, { params }: { params: { id: number } }) {
-  const id = params.id;
+export async function POST(request: Request) {
   const body = await request.json();
   const cookieStore = cookies();
   const sessionToken = cookieStore.get('sessionToken');
+  if (!sessionToken) {
+    return Response.json(
+      { status: 400, message: 'Cannot receive token' },
+      {
+        status: 400,
+      },
+    );
+  }
   try {
-    const res = await userApiRequest.updateUser(id, body, sessionToken?.value ?? '');
+    const res = await postApiRequest.createPost(body, sessionToken?.value ?? '');
 
     if (res.status === 200)
       return Response.json(
         {
           status: res.status,
           data: res.data,
-          message: 'Update Done',
+          message: 'Create post successfully',
         },
         { status: 200 },
       );
