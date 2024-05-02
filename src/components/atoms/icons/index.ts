@@ -7,3 +7,6 @@ export { GithubIcon } from './GithubIcon';
 export { SpinnerIcon } from './SpinnerIcon';
 export { ProfileIcon } from './ProfileIcon';
 export { PostPlaceholderIcon } from './PostPlaceholderIcon';
+export { CreateIcon } from './CreateIcon';
+export { UploadIcon } from './UploadIcon';
+export { HeartIcon } from './HeartIcon';
