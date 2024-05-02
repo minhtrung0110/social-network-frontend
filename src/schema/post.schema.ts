@@ -30,6 +30,17 @@ export const PostsRes = z.array(
   }),
 );
 
+export const CreatePost = z.object({
+  caption: z
+    .string()
+    .min(5, { message: 'Minimum 5 characters.' })
+    .max(2200, { message: 'Maximum 2,200 caracters' }),
+  imageUrl: z.custom<File[]>().nullable(),
+  tags: z.string(),
+  scope: z.string(),
+  userId: z.number().optional(),
+});
+
 export const PostRes = z
   .object({
     status: z.number(),
@@ -37,11 +48,10 @@ export const PostRes = z
     message: z.string(),
   })
   .strict();
-
+export type Post = z.TypeOf<typeof PostItem>;
 export type ListPostResType = z.TypeOf<typeof PostsRes>;
 export type PostResType = z.TypeOf<typeof PostRes>;
-export const UpdateMeBody = z.object({
-  name: z.string().trim().min(2).max(256),
-});
+export type CreatePostType = z.TypeOf<typeof CreatePost>;
+export type UpdatePostType = z.TypeOf<typeof CreatePost>;
+export type UpdatePostQueryType = z.TypeOf<typeof CreatePost> & { id: number };
 
-export type UpdateMeBodyType = z.TypeOf<typeof UpdateMeBody>;

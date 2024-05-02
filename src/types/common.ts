@@ -15,3 +15,6 @@ export type SN_Response = {
   data: any;
   message: string;
 };
+export type SearchParams = {
+  [key: string]: string;
+};

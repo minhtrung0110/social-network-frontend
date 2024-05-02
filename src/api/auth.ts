@@ -1,4 +1,4 @@
-import http from '@/_lib/http';
+import http from '@/utils/http';
 import {
   AuthType,
   LoginBodyType,
@@ -8,9 +8,11 @@ import {
   SlideSessionResType,
 } from '@/schema/auth.schema';
 import { ApiResType } from '@/schema/comon.schema';
+import envConfig from '@/config/envConfig';
 
 const authApiRequest = {
   login: (body: LoginBodyType) => http.post<LoginResType>('/auth/login', body),
+  loginGoogle: () => http.get(envConfig?.NEXT_GET_OAUTH_URL as string),
   register: (body: SignUpBodyType) => http.post<SignUpRespondType>('/auth/register', body),
   verify: (userId: string, token: string) =>
     http.get<AuthType>(`/auth/register/confirm?token=${token}&userId=${userId}`, {
