@@ -1,4 +1,4 @@
-import { HttpError } from '@/_lib/http';
+import { HttpError } from '@/utils/http';
 import userApiRequest from '@/api/user';
 import { cookies } from 'next/headers';
 

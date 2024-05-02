@@ -31,6 +31,7 @@
         --input: 220 13% 91%;
         --ring: 224 71.4% 4.1%;
         --radius: 0.5rem;
+        --gradient: linear-gradient(to right, #FF69B4, #FF1493, #FF00FF, #C71585);
     }
 
     .dark {
@@ -55,6 +56,7 @@
         --border: 215 27.9% 16.9%;
         --input: 215 27.9% 16.9%;
         --ring: 216 12.2% 83.9%;
+        --gradient: linear-gradient(to right, #FF69B4, #FF1493, #FF00FF, #C71585);
     }
 
     * {
@@ -73,6 +75,11 @@
         box-shadow: none !important;
     }
 
+    .background-gradient {
+        padding: 2px;
+        background-image: linear-gradient(to right bottom, #6a5af9, #f62682);
+    }
+
     /* BACKGROUND*/
     .bg-popover {
         background-color: hsl(240, 10%, 3.9%);
@@ -84,7 +91,7 @@
 
     /* TYPOGRAPHY */
     .h1-bold {
-        @apply text-[36px] font-bold leading-[140%] tracking-tighter;
+        @apply text-[30px] font-bold leading-[140%] tracking-tighter;
     }
 
     .h1-semibold {
@@ -92,51 +99,64 @@
     }
 
     .h2-bold {
-        @apply text-[30px] font-bold leading-[140%] tracking-tighter;
-    }
-
-    .h3-bold {
         @apply text-[24px] font-bold leading-[140%] tracking-tighter;
     }
 
+    .h3-bold {
+        @apply text-[18px] font-bold leading-[140%] tracking-tighter;
+    }
+
     .base-semibold {
-        @apply text-[16px] font-semibold leading-[140%] tracking-tighter;
-    }
-
-    .base-medium {
-        @apply text-[16px] font-medium leading-[140%];
-    }
-
-    .base-regular {
-        @apply text-[16px] font-normal leading-[140%];
-    }
-
-    .body-bold {
-        @apply text-[18px] font-bold leading-[140%];
-    }
-
-    .body-medium {
-        @apply text-[18px] font-medium leading-[140%];
-    }
-
-    .small-semibold {
         @apply text-[14px] font-semibold leading-[140%] tracking-tighter;
     }
 
-    .small-medium {
+    .base-bold {
+        @apply text-[14px] font-bold leading-[140%] tracking-tighter;
+    }
+
+    .base-medium {
         @apply text-[14px] font-medium leading-[140%];
     }
 
-    .small-regular {
+    .base-regular {
         @apply text-[14px] font-normal leading-[140%];
     }
 
+    .body-bold {
+        @apply text-[16px] font-bold leading-[140%];
+    }
+
+    .body-medium {
+        @apply text-[16px] font-medium leading-[140%];
+    }
+
+    .body-bold {
+        @apply text-[16px] font-bold leading-[140%];
+    }
+
+
+    .small-semibold {
+        @apply text-[12px] font-semibold leading-[140%] tracking-tighter;
+    }
+
+    .small-medium {
+        @apply text-[12px] font-medium leading-[140%];
+    }
+
+    .small-regular {
+        @apply text-[12px] font-normal leading-[140%];
+    }
+
+    .small-bold {
+        @apply text-[12px] font-bold leading-[140%];
+    }
+
     .subtle-semibold {
-        @apply text-[12px] font-semibold leading-[140%];
+        @apply text-[10px] font-semibold leading-[140%];
     }
 
     .tiny-medium {
-        @apply text-[10px] font-medium leading-[140%];
+        @apply text-[8px] font-medium leading-[140%];
     }
 
     /* UTILITIES */
@@ -224,7 +244,7 @@
     }
 
     .home-creators {
-        @apply hidden xl:flex flex-col w-72 2xl:w-465 px-6 py-10 gap-10  overflow-scroll custom-scrollbar;
+        @apply hidden xl:flex flex-col w-72 2xl:w-[400px] px-6 py-10 gap-10  overflow-scroll custom-scrollbar;
     }
 
     /* Post Details */
@@ -277,7 +297,7 @@
     }
 
     .file_uploader-label {
-        @apply text-foreground-4 text-center small-regular w-full p-4 border-t border-t-dark-4;
+        @apply text-foreground text-center small-regular w-full p-4 border-t-[2x] border-accent-foreground;
     }
 
     .file_uploader-box {
@@ -300,11 +320,19 @@
 
     /* Post Card */
     .post-card {
-        @apply rounded-3xl border p-5 lg:p-7 w-full max-w-screen-sm;
+        @apply rounded-2xl   lg:p-7 w-full max-w-screen-sm border border-secondary px-3 py-4;
     }
 
     .post-card_img {
-        @apply h-64 xs:h-[400px] lg:h-[450px] w-full rounded-[24px] object-cover mb-5;
+        @apply h-64 xs:h-[400px] lg:h-[450px] w-full rounded-[6px] object-cover mb-5;
+    }
+
+    .post-card-actions {
+        @apply flex flex-row justify-between px-2
+    }
+
+    .action-icon {
+        @apply mr-5 cursor-pointer hover:text-gray-400 hover:scale-[1.1] font-bold
     }
 
     /* Topbar */
@@ -315,7 +343,7 @@
     /*md:hidden*/
     /* User card */
     .user-card {
-        @apply flex-center flex-col gap-4 border border-dark-4 rounded-[20px] px-5 py-8;
+        @apply flex-center flex-col gap-4 border border-primary rounded-[20px] px-5 py-8;
     }
 }
 

@@ -1,4 +1,4 @@
-import http from '@/_lib/http';
+import http from '@/utils/http';
 import { FileResType } from '@/schema/upload.schema';
 
 const uploadApiRequest = {
@@ -12,12 +12,13 @@ const uploadApiRequest = {
   //       Authorization: `Bearer ${sessionToken}`,
   //     },
   //   }),
-  uploadImage: (body: FormData, sessionToken: string) =>
+  uploadImageAuth: (body: FormData, sessionToken: string) =>
     http.post<FileResType>('/upload/firebase', body, {
       headers: {
         Authorization: `Bearer ${sessionToken}`,
       },
     }),
+  uploadImage: (body: FormData) => http.post<FileResType>('/upload/firebase', body),
 };
 
 export default uploadApiRequest;

@@ -1,5 +1,5 @@
-import envConfig from '@/config/config';
-import { normalizePath } from '@/_lib/utils';
+import envConfig from '@/config/envConfig';
+import { normalizePath } from '@/utils/util';
 import { LoginResType } from '@/schema/auth.schema';
 import { redirect } from 'next/navigation';
 
@@ -141,7 +141,7 @@ const request = async <Response>(
           clientSessionToken.value = '';
           clientSessionToken.expiresAt = new Date().toISOString();
           clientLogoutRequest = null;
-          //location.href = '/sign-in';
+          location.href = '/sign-in';
         }
       } else {
         // auto logout when token is expired
@@ -171,7 +171,7 @@ const request = async <Response>(
 
 const http = {
   get<Response>(url: string, options?: Omit<CustomOptions, 'body'> | undefined) {
-    return request<Response>('GET', url, options);
+    return request<Response>('GET', url, { ...options });
   },
   post<Response>(url: string, body: any, options?: Omit<CustomOptions, 'body'> | undefined) {
     return request<Response>('POST', url, { ...options, body });

@@ -14,6 +14,7 @@ export async function POST(request: Request) {
   const expiresDate = new Date(Date.now() - 7 * 3600000 + Number(expiresAt) * 1000);
   // Múi giờ -420 lệch 7h nên phải trừ ra 7h
   console.log('Exp', today.getTime(), Number(expiresAt) * 1000, expiresDate);
+  
   return Response.json(body, {
     status: 200,
     headers: {

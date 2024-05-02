@@ -6,12 +6,9 @@ real-time. The platform is built using NestJs, Socket.io, Redis, JWT Authenticat
 ## Overview
 
 - [Introduction](#introduction)
-- [Features](#features)
-- [Technologies](#technologies)
+- [Authentication](#authentication)
+
 - [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Database](#database)
-- [Testing](#testing)
 - [Contribution](#contribution)
 - [License](#license)
 
@@ -20,26 +17,15 @@ real-time. The platform is built using NestJs, Socket.io, Redis, JWT Authenticat
 SnapGram provides users with a seamless and engaging experience for sharing visual content. The use of real-time
 communication and modern technologies enhances user interactions.
 
-## Features
+## Authentication
 
-- **User Profiles:** Create and personalize profiles.
+- **Authentication:** Create and personalize profiles.
 - **Media Sharing:** Share photos and videos effortlessly.
 - **Real-time Updates:** Stay connected with friends through live updates.
 - **Secure Authentication:** Use JWT for secure user authentication.
 - **Efficient Database Operations:** Utilize Prisma for smooth database interactions.
 - **Testing API:** Ensure reliability with Pactum for API testing.
 - **Containerization:** Deploy and manage SnapGram using Docker.
-
-## Technologies
-
-- **Backend Framework:** NestJs
-- **Real-time Communication:** Socket.io
-- **Caching:** Redis
-    - https://selftuts.in/install-redis-using-docker-compose/
-- **Authentication:** JWT Authentication
-- **Database ORM:** Prisma
-- **API Testing:** Pactum
-- **Containerization:** Docker
 
 ## Getting Started
 
@@ -67,17 +53,9 @@ yarn install
 
 ## Usage
 
-Visit http://localhost:8888/api/v1 in your browser.
+Visit http://localhost:3000 in your browser.
 Sign up or log in with existing credentials.
 Explore features, upload media, and connect with friends.
-
-## Database
-
-![social-netWork.svg](social-netWork.svg)
-
-## Testing
-
-- Ensure code reliability with Pactum for API testing.
 
 ## Contribution
 

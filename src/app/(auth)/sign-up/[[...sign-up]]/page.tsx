@@ -2,10 +2,11 @@
 // @ts-ignore
 import React from 'react';
 import Image from 'next/image';
-import { GoogleIcon } from '@/components/atoms/icons';
 import { ROUTES } from '@/constrants/route';
 import Link from 'next/link';
 import SignupForm from '@/app/(auth)/components/organisms/SignupForm';
+import { GoogleIcon } from '@/components/atoms/icons';
+import envConfig from '@/config/envConfig';
 
 // Component
 
@@ -74,10 +75,11 @@ const SignUpPage: React.FC<Props> = (props) => {
             </div>
           </div>
           <div className='grid grid-cols-1 gap-x-1'>
-            <button
+            <Link
+              href={envConfig.NEXT_PUBLIC_OAUTH_URL}
               className='flex items-center justify-center py-2 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100'>
               <GoogleIcon />
-            </button>
+            </Link>
           </div>
           <div className='relative'>
             <span className='block w-full h-px bg-gray-300'></span>

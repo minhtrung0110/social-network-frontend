@@ -8,6 +8,12 @@ const nextConfig = {
         // port: '4000',
         // // pathname: '/photos/**'
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        // port: '4000',
+        // // pathname: '/photos/**'
+      },
     ],
   },
   logging: {
