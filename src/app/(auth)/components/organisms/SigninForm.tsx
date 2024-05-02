@@ -16,9 +16,8 @@ import { Input } from '@/components/ui/input';
 import authApiRequest from '@/api/auth';
 
 import { useRouter } from 'next/navigation';
-import { handleErrorApi } from '@/_lib/utils';
+import { handleErrorApi } from '@/utils/util';
 import { useToast } from '@/components/ui/use-toast';
-import { useGlobalState } from '@/store/zustand';
 
 // Component
 
@@ -47,7 +46,8 @@ type formSignInSchemaType = z.infer<typeof formSignInSchema>;
 const SignInForm: React.FC<Props> = props => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const setSessionToken = useGlobalState(state => state.setSessionToken);
+
+  // const setSessionToken = useGlobalState(state => state.setSessionToken);
   const { toast } = useToast();
   const form = useForm<formSignInSchemaType>({
     resolver: zodResolver(formSignInSchema),
@@ -59,13 +59,21 @@ const SignInForm: React.FC<Props> = props => {
 
     try {
       const res = await authApiRequest.login(data);
+      const expiresDate = new Date(Date.now() - 7 * 3600000 + Number(res.data.expiresAt) * 1000);
       if (res.status === 200) {
         // call into server side
         await authApiRequest.auth({
           sessionToken: res.data.accessToken,
           expiresAt: res.data.expiresAt,
         });
-        setSessionToken(res.data.accessToken);
+        // setSessionToken(res.data.accessToken);
+        document.cookie =
+          'sessionToken' +
+          '=' +
+          res.data.accessToken +
+          ';expires=' +
+          expiresDate +
+          ';domain=http://localhost:8888/;path=/';
         toast({
           description: res.message,
         });
