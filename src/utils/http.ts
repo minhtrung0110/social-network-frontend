@@ -1,5 +1,5 @@
-import envConfig from '@/config/config';
-import { normalizePath } from '@/_lib/utils';
+import envConfig from '@/config/envConfig';
+import { normalizePath } from '@/utils/util';
 import { LoginResType } from '@/schema/auth.schema';
 import { redirect } from 'next/navigation';
 
@@ -85,15 +85,15 @@ const request = async <Response>(
       ? options.body
       : JSON.stringify(options.body)
     : undefined;
-  const baseHeaders =
-    body instanceof FormData
-      ? {
-          Authorization: clientSessionToken.value ? `Bearer ${clientSessionToken.value}` : '',
-        }
-      : {
-          'Content-Type': 'application/json',
-          Authorization: clientSessionToken.value ? `Bearer ${clientSessionToken.value}` : '',
-        };
+
+  const baseHeaders = !(body instanceof FormData) && { 'Content-Type': 'application/json' };
+  // ? {
+  //     Authorization: clientSessionToken.value ? `Bearer ${clientSessionToken.value}` : '',
+  //   }
+  // : {
+  //     'Content-Type': 'application/json',
+  //     Authorization: clientSessionToken.value ? `Bearer ${clientSessionToken.value}` : '',
+  //   };
   // Nếu không truyền baseUrl (hoặc baseUrl = undefined) thì lấy từ envConfig.NEXT_PUBLIC_API_ENDPOINT
   // Nếu truyền baseUrl thì lấy giá trị truyền vào, truyền vào '' thì đồng nghĩa với việc chúng ta gọi API đến Next.js Server
 
@@ -105,10 +105,12 @@ const request = async <Response>(
 
   const res = await fetch(fullUrl, {
     ...options,
+    credentials: 'include', // allow to attach cookie when send request to Server
     headers: {
       ...baseHeaders,
       ...options?.headers,
     } as any,
+
     body,
     method,
   });
@@ -141,13 +143,13 @@ const request = async <Response>(
           clientSessionToken.value = '';
           clientSessionToken.expiresAt = new Date().toISOString();
           clientLogoutRequest = null;
-          //location.href = '/sign-in';
+          location.href = '/sign-in';
         }
       } else {
         // auto logout when token is expired
-        const sessionToken = (options?.headers as any)?.Authorization.split('Bearer ')[1];
-        console.log('Session token was redirected to ' + sessionToken);
-        redirect(`/sign-out?sessionToken=${sessionToken}`);
+        // const sessionToken = (options?.headers as any)?.Authorization.split('Bearer ')[1];
+        // console.log('Session token was redirected to ' + sessionToken);
+        redirect(`/sign-out`);
       }
     } else {
       throw new HttpError(data);
@@ -171,7 +173,7 @@ const request = async <Response>(
 
 const http = {
   get<Response>(url: string, options?: Omit<CustomOptions, 'body'> | undefined) {
-    return request<Response>('GET', url, options);
+    return request<Response>('GET', url, { ...options });
   },
   post<Response>(url: string, body: any, options?: Omit<CustomOptions, 'body'> | undefined) {
     return request<Response>('POST', url, { ...options, body });
@@ -184,6 +186,13 @@ const http = {
   },
   delete<Response>(url: string, options?: Omit<CustomOptions, 'body'> | undefined) {
     return request<Response>('DELETE', url, { ...options });
+  },
+  deleteAdvance<Response>(
+    url: string,
+    body?: any,
+    options?: Omit<CustomOptions, 'body'> | undefined,
+  ) {
+    return request<Response>('DELETE', url, { ...options, body });
   },
 };
 
