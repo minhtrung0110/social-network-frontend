@@ -18,6 +18,7 @@ export const PostItem = z.object({
       userId: z.number(),
     }),
   ),
+  postSaved: z.array(z.object({ userId: z.number() })),
   status: z.number(),
   createdAt: z.date(),
   updatedAt: z.date(),
