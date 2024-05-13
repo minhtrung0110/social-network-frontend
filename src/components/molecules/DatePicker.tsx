@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { CalendarIcon } from '@radix-ui/react-icons';
 import { format } from 'date-fns';
 import { Calendar } from '@/components/ui/calendar';
-import { cn } from '@/_lib/utils';
+import { cn } from '@/utils/style';
 
 // Component
 
