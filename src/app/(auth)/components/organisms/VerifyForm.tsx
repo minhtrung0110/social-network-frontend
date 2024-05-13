@@ -41,8 +41,8 @@ const VerifyForm: React.FC<Props> = props => {
     try {
       if (userId) {
         const res = await authApiRequest.verify(userId.id, data.otp);
-        console.log('Res Verify:', res.payload.status);
-        if (res.payload.status === 200) {
+        console.log('Res Verify:', res.status);
+        if (res.status === 200) {
           toast({
             title: 'Success',
             description: 'Verified email successful',
