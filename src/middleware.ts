@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { checkPrivateRoute } from '@/_lib/utils';
+import { checkPrivateRoute } from '@/utils/util';
 import { ROUTES, SNRoute } from '@/constrants/route';
 
 // @ts-ignore
