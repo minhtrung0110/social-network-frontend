@@ -7,6 +7,7 @@ export enum QUERY_KEYS {
   GET_CURRENT_USER = 'getCurrentUser',
   GET_USERS_BY_USERNAME = 'getUsersByUsername',
   GET_USER_BY_ID = 'getUserById',
+  GET_USER_PROFILE_BY_ID = 'getUserProfileById',
 
   // POST KEYS
   GET_POSTS = 'getPosts',
@@ -17,11 +18,28 @@ export enum QUERY_KEYS {
   GET_FILE_PREVIEW = 'getFilePreview',
 
   // COMMENT KEYS
+  ADD_COMMENT = 'addComment',
+  UPDATE_COMMENT = 'updateComment',
+  DELETE_COMMENT = 'deleteComment',
   GET_COMMENT = 'getComments',
   GET_INFINITE_COMMENT = 'getInfiniteComments',
   GET_RECENT_COMMENT = 'getRecentComments',
   GET_POST_COMMENT = 'getPostComments',
+  GET_POST_COMMENT_CONDITION = 'getPostCommentsWithCondition',
+
+  // LIKE KEYS
+  ADD_LIKE = 'addLike',
+  DELETE_LIKE = 'deleteLike',
+  GET_POST_LIKES = 'getPostLikes',
+
+  // SAVED KEYS
+  ADD_SAVED = 'addSaved',
+  DELETE_SAVED = 'deleteSaved',
+  GET_POST_SAVEDS = 'getPostSaveds',
 
   //  SEARCH KEYS
   SEARCH_POSTS = 'getSearchPosts',
 }
+
+export const STALE_TIME = 50 * 1000;
+export const CACHE_TIME = 100 * 1000;
