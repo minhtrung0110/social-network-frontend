@@ -1,7 +1,7 @@
 // Libraries
 import React, { useCallback, useState } from 'react';
 import { FileWithPath, useDropzone } from 'react-dropzone';
-import { convertFileToUrl } from '@/_lib/utils';
+import { convertFileToUrl } from '@/utils/util';
 import Image from 'next/image';
 import { ProfileIcon } from '@/components/atoms/icons';
 
