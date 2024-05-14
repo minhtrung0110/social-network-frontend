@@ -10,6 +10,20 @@ export const UserObj = z.object({
   birthday: z.date(),
   address: z.string().optional(),
   gender: z.string().optional(),
+  followedBy: z
+    .array(
+      z.object({
+        userId: z.number(),
+      }),
+    )
+    .nullable(),
+  following: z
+    .array(
+      z.object({
+        userId: z.number(),
+      }),
+    )
+    .nullable(),
 });
 export const UserCompact = z.object({
   id: z.number(),

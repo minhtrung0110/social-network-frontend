@@ -1,6 +1,6 @@
 'use client';
 
-import { handleErrorApi } from '@/_lib/utils';
+import { handleErrorApi } from '@/utils/util';
 import { usePathname, useRouter } from 'next/navigation';
 import authApiRequest from '@/api/auth';
 import { PinLeft } from '@/components/atoms/icons/PinLeft';

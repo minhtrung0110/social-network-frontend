@@ -5,7 +5,7 @@ import { EditIcon } from '@/components/atoms/icons';
 import { cookies } from 'next/headers';
 import userApiRequest from '@/api/user';
 import Loader from '@/components/atoms/Loader';
-import FormProfile from '@/app/(home)/profile/components/molecules/FormProfile';
+import FormProfile from '../../components/organisms/FormProfile';
 
 // Component
 

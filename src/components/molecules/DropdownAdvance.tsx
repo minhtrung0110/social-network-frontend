@@ -50,7 +50,7 @@ const DropdownAdvance: React.FC<DropdownAdvanceProps> = props => {
           {menus.map(link => {
             return (
               <div
-                key={link.label}
+                key={`menu-${link.label}`}
                 className={`left-sidebar-link group`}
                 onClick={() => changeMenu(link)}
               >
@@ -68,13 +68,13 @@ const DropdownAdvance: React.FC<DropdownAdvanceProps> = props => {
           (menu, index) =>
             !!menu.children && (
               <div
-                key={index}
+                key={`gr-sub-menu-${index}`}
                 className={`${activeMenu !== menu.key && 'hidden'}`}
                 id={'sidebar-menu-sub'}
               >
                 {menu.children.map(submenu => {
                   return (
-                    <div key={submenu.key} className={`left-sidebar-link group`}>
+                    <div key={`sub-menu-${submenu.key}`} className={`left-sidebar-link group`}>
                       {submenu.hasOwnProperty('children') ? (
                         <div
                           className='flex gap-4 items-center p-4 text-muted-foreground'

@@ -3,8 +3,10 @@ import { SpinnerIcon } from '@/components/atoms/icons';
 
 function Loading() {
   return (
-    <div className="flex items-center justify-center w-full h-full">
-      <SpinnerIcon width={35} height={35} className="animate-spin h-12 w-12" />
+    <div className="flex-center w-full h-[700px]">
+      <div className={'flex-center'}>
+        <SpinnerIcon width={40} height={40} className="animate-spin h-14 w-14" />
+      </div>
     </div>
   );
 }

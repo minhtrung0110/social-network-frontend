@@ -1,15 +1,17 @@
 // Libraries
 import React, { Suspense } from 'react';
-import HomeFeed from '@/app/(home)/components/organisms/HomeFeed';
 import { cookies } from 'next/headers';
-import postApiRequest from '@/api/post';
-import Loader from '@/components/atoms/Loader';
 
 // Component
+import NewFeed from '@/app/(home)/components/organisms/NewFeed';
+import Loader from '@/components/atoms/Loader';
+import TopCreator from '@/app/(home)/components/organisms/TopCreator';
+import ProfileInstant from '@/app/(home)/components/molecules/ProfileInstant';
+import TopStory from '@/app/(home)/components/organisms/TopStory';
 
-// Style
-
-// Types
+// Api
+import userApiRequest from '@/api/user';
+import { Separator } from '@/components/ui/separator';
 
 
 interface Props {
@@ -17,25 +19,26 @@ interface Props {
 }
 
 const HomePage: React.FC<Props> = async (props) => {
-  const isPostLoading = true;
   const cookieStore = cookies();
   const sessionToken = cookieStore.get('sessionToken');
-  // @ts-ignore
-  const result = await postApiRequest.getList(sessionToken?.value ?? '');
-  console.log('Posts', result);
+  const { data: listUsers } = await userApiRequest.getAllUsers(sessionToken?.value ?? '');
 
+  const listUserStories = listUsers?.data?.map(item => ({ ...item, story: true }));
 
   return (
-    <div>
-      Home Page
+    <div className={'flex flex-1'}>
       <div className={'home-container'}>
+        <TopStory listUserStories={listUserStories} />
         <Suspense fallback={<Loader />}>
-          <HomeFeed data={result.data} />
+          <NewFeed />
         </Suspense>
-
       </div>
       <div className={'home-creators'}>
-        Creator
+        <ProfileInstant />
+        <Separator orientation='horizontal' />
+        <Suspense fallback={<Loader />}>
+          <TopCreator data={listUsers} />
+        </Suspense>
       </div>
     </div>
   );

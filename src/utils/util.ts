@@ -102,6 +102,63 @@ export function buildQueryString(params: any) {
   return encodedParams.join('&');
 }
 
+/**
+ * Render Tree Comment in Post Detail
+ * @param {Array} array - The object containing the parameters.
+ * @returns {string} The generated query string.
+ * @throws {Error} If params is not an object.
+ */
+
+export interface Comment {
+  id: number;
+  content: string;
+  userId: number;
+  user: {
+    id: number;
+    username: string;
+    avatar: string;
+  };
+  postId: number;
+  replyId: number | null;
+  updatedAt: Date;
+}
+
+export interface CommentWithChildren extends Comment {
+  children?: CommentWithChildren[];
+}
+
+export const listComments: Comment[] = [
+  // Danh sách comment như đã cung cấp
+];
+
+export const buildCommentTree = (comments: Comment[]): CommentWithChildren[] => {
+  const commentMap: { [key: number]: CommentWithChildren } = {};
+  const commentTree: CommentWithChildren[] = [];
+
+  comments.forEach(comment => {
+    commentMap[comment.id] = { ...comment, children: [] };
+  });
+
+  comments.forEach(comment => {
+    if (comment.replyId !== null && commentMap[comment.replyId]) {
+      commentMap[comment.replyId].children?.push(commentMap[comment.id]);
+    } else {
+      commentTree.push(commentMap[comment.id]);
+    }
+  });
+
+  return commentTree;
+};
+
+// Sử dụng hàm để tạo cây comment
+// const commentTree = buildCommentTree(listComments);
+// console.log(commentTree);
+
+export function getRandomInt(max: number) {
+  return Math.floor(Math.random() * max);
+}
 
 
-
+export const handleCheckUserExist = (array: { userId: number }[], userId: number, key = 'userId') => {
+  return array?.some(item => item[key] === userId);
+};

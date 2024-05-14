@@ -26,13 +26,17 @@ const userApiRequest = {
       },
       cache: 'no-store',
     }),
+  getInfoUserById: (id: number) =>
+    http.get<AccountResType>(`user/profile/${id}`, {
+      cache: 'no-cache',
+    }),
   searchUser: (params: SearchParams, sessionToken: string) => {
     const url = `user?${buildQueryString(params)}`;
     return http.get<AccountResType>(url, {
       headers: {
         Authorization: `Bearer ${sessionToken}`,
       },
-      cache: 'no-store',
+      cache: 'no-cache',
     });
   },
   getUsersFormClientToServer: (username: string) =>
