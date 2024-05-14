@@ -19,8 +19,8 @@
         --third-foreground: 210 20% 98%;
         --hover: 201, 70%, 57%;
         --hover-foreground: 201, 70%, 57% 11%;
-        --muted: 220 14.3% 95.9%;
-        --muted-foreground: 220 8.9% 46.1%;
+        --muted: 220 14.3% 85%;
+        --muted-foreground: 220 8.9% 65%;
         --accent: 220 14.3% 95.9%;
         --accent-foreground: 220.9 39.3% 11%;
         --error: 355, 84%, 43%;
@@ -45,8 +45,8 @@
         --primary-foreground: 220.9 39.3% 11%;
         --secondary: 215 27.9% 16.9%;
         --secondary-foreground: 210 20% 98%;
-        --muted: 215 27.9% 16.9%;
-        --muted-foreground: 217.9 10.6% 64.9%;
+        --muted: 215 27.9% 25%;
+        --muted-foreground: 217.9 10.6% 32%;
         --accent: 215 27.9% 16.9%;
         --accent-foreground: 210 20% 98%;
         --error: 350, 82%, 39%;
@@ -122,10 +122,6 @@
         @apply text-[14px] font-normal leading-[140%];
     }
 
-    .body-bold {
-        @apply text-[16px] font-bold leading-[140%];
-    }
-
     .body-medium {
         @apply text-[16px] font-medium leading-[140%];
     }
@@ -177,17 +173,22 @@
     }
 
     .custom-scrollbar::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
+        width: 8px;
+        height: 8px;
         border-radius: 3px;
     }
 
+    /* Box-Shadow*/
+    .shadow-b {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
     .custom-scrollbar::-webkit-scrollbar-track {
-        background: rgba(169, 187, 220, 0.6);
+        background: rgba(67, 126, 236, 0.6);
     }
 
     .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: rgba(213, 140, 165, 0.6);
+        background: rgba(239, 50, 115, 0.6);
         border-radius: 50px;
     }
 
@@ -203,11 +204,17 @@
         @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 custom-scrollbar;
     }
 
+    /* Button */
+    .btn-none {
+        @apply bg-transparent hover:bg-transparent
+    }
+
     /* Left sidebar */
     .left-sidebar {
         @apply hidden md:flex px-6 pt-2 pb-2 flex-col justify-between min-w-[280px] min-h-[745px]  border-r border-gray-600 relative;
     }
 
+    /*md:flex*/
     .left-sidebar-link {
         @apply rounded-lg base-medium hover:bg-secondary transition ;
     }
@@ -249,15 +256,15 @@
 
     /* Post Details */
     .post_details-container {
-        @apply flex flex-col flex-1 gap-10 overflow-scroll py-10 px-5 md:p-14 custom-scrollbar items-center;
+        @apply flex flex-col flex-1 gap-6 overflow-scroll py-4 px-5 md:p-6 custom-scrollbar items-center;
     }
 
     .post_details-card {
-        @apply bg-secondary w-full max-w-5xl rounded-[30px] flex-col flex xl:flex-row border border-dark-4 xl:rounded-l-[24px];
+        @apply bg-secondary flex  max-w-5xl lg:max-h-[650px] border-foreground flex-1 items-start  rounded-sm
     }
 
     .post_details-img {
-        @apply h-80 lg:h-[480px] xl:w-[48%] rounded-t-[30px] xl:rounded-l-[24px] xl:rounded-tr-none object-cover p-5 bg-dark-1;
+        @apply h-80 lg:h-[480px] xl:w-[48%] rounded-t-[30px] xl:rounded-l-[24px] xl:rounded-tr-none object-cover p-5 bg-background;
     }
 
     .post_details-info {
@@ -270,7 +277,7 @@
 
     /* Profile */
     .profile-container {
-        @apply flex flex-col items-center flex-1 gap-10 overflow-scroll py-10 px-5 md:p-14 custom-scrollbar;
+        @apply flex flex-col overflow-auto items-center flex-1 gap-10 py-10 px-5 md:p-14 custom-scrollbar;
     }
 
     .profile-inner_container {
@@ -335,6 +342,11 @@
         @apply mr-5 cursor-pointer hover:text-gray-400 hover:scale-[1.1] font-bold
     }
 
+    /*PostCardDetail*/
+    .list-comments-postcard-detail {
+        @apply overflow-y-auto min-h-[340px] max-h-[360px] custom-scrollbar border-t border-gray-700
+    }
+
     /* Topbar */
     .topbar {
         @apply sticky top-0 z-50  bg-secondary w-full md:hidden;
@@ -344,6 +356,10 @@
     /* User card */
     .user-card {
         @apply flex-center flex-col gap-4 border border-primary rounded-[20px] px-5 py-8;
+    }
+
+    .creator-card {
+        @apply flex-center flex-col gap-2 border border-primary rounded-[20px] px-1 py-2;
     }
 }
 
