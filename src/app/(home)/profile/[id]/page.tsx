@@ -1,9 +1,11 @@
 // Libraries
-import React, { Suspense } from 'react';
+import React from 'react';
 import Loader from '@/components/atoms/Loader';
 import userApiRequest from '@/api/user';
 import { cookies } from 'next/headers';
-import ProfileInfo from '@/app/(home)/profile/components/molecules/ProfileInfo';
+import ProfileInfo from '../components/organisms/ProfileInfo';
+import ProfilePost from '@/app/(home)/profile/components/organisms/ProfilePost';
+import ProfileStory from '@/app/(home)/profile/components/organisms/ProfileStory';
 
 
 // Component
@@ -16,6 +18,28 @@ interface ProfileProps {
   params: { id: string };
 }
 
+const listStories = [
+  {
+    id: 1,
+    username: 'dh.baotrung',
+    email: 'nguyenducminhtrung0044@gmail.com',
+    firstName: 'Trung',
+    lastName: 'Nguyen Duc Minh',
+    story: true,
+    avatar: 'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1713982059299_3592.jpg?alt=media',
+
+  },
+  {
+    id: 2,
+    username: 'le hoai linh',
+    email: 'linhka56@gmail.com',
+    firstName: 'Linh',
+    lastName: 'Nguyen Duc Minh',
+    story: true,
+    avatar: 'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1713982059299_3592.jpg?alt=media',
+
+  },
+];
 const ProfilePage: React.FC<ProfileProps> = async props => {
   const { id } = props.params;
   const cookieStore = cookies();
@@ -30,9 +54,10 @@ const ProfilePage: React.FC<ProfileProps> = async props => {
     );
   return (
     <div className='profile-container'>
-      <Suspense fallback={<Loader />}>
-        <ProfileInfo user={currentUser} />
-      </Suspense>
+      <ProfileInfo user={currentUser} />
+      <ProfileStory data={listStories} />
+      <ProfilePost />
+
 
       {/*{currentUser.$id === user.id && (*/}
       {/*  <div className='flex max-w-5xl w-full'>*/}

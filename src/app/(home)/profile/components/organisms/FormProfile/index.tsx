@@ -18,17 +18,17 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import Loader from '@/components/atoms/Loader';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/_lib/utils';
+import { cn } from '@/utils/style';
 import { format } from 'date-fns';
 import { CalendarIcon } from '@radix-ui/react-icons';
 import { Calendar } from '@/components/ui/calendar';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
-import { useGlobalState } from '@/store/zustand';
 import uploadApiRequest from '@/api/upload';
 import userApiRequest from '@/api/user';
 import { ROUTES } from '@/constrants/route';
+import { useAppContext } from '@/store/app-provider';
 // Component
 
 // Style
@@ -49,7 +49,7 @@ const FormProfile: React.FC<Props> = props => {
   const [pending, startTransition] = useTransition();
   const { toast } = useToast();
   const router = useRouter();
-  const setUser = useGlobalState(state => state.setUser);
+  const { setUser } = useAppContext();
   //console.log('profile', profile);
 
   const form = useForm<z.infer<typeof UpdateUser>>({
@@ -114,7 +114,10 @@ const FormProfile: React.FC<Props> = props => {
       form.handleSubmit(handleUpdate)();
     });
   };
-  console.log('Pending transition:', pending);
+  //console.log('Pending transition:', pending);
+  const handleCancel = (e: any) => {
+    router.back();
+  };
   return (
     <Form {...form}>
       <form
@@ -260,7 +263,7 @@ const FormProfile: React.FC<Props> = props => {
           <Button
             type="button"
             className="shad-button_dark_4 whitespace-nowrap"
-            //onClick={() => navigate(-1)}
+            onClick={handleCancel}
           >
             Cancel
           </Button>
