@@ -40,13 +40,13 @@ communication and modern technologies enhances user interactions.
 - Ta chỉ lấy được value cookie khi ở server component. Nếu muốn lấy cookie ở client component thì cookie phải
 lưu ở localstorage,...
 - Khi ta dùng cookie từ next/cookie là hệ thống sẽ chuyển sang Dynamic Rendering.
-<a href='https://nextjs.org/docs/app/building-your-application/rendering/server-components#dynamic-rendering'
-   target='_blank'>Next.js Dynamic Rendering</a>
--
 
 ````
 
-Backend : Cấu hình CORS để nhận Cookie từ domain của Frontend.
+[Next.js Dynamic Rendering](https://nextjs.org/docs/app/building-your-application/rendering/server-components#dynamic-rendering)
+
+- Khi ta call API từ route handler thì be hiện tại ko nhận dc cookies.
+  Backend : Cấu hình CORS để nhận Cookie từ domain của Frontend.
 
 ````
     app.enableCors({
@@ -92,3 +92,6 @@ Explore features, upload media, and connect with friends.
 ## License
 
 - This project is licensed under the MIT License.
+
+QueryProvider và AuthProvide (Context) phải set 'use client'
+[BUG] emoji ko picker được cho đến khi refresh trang
