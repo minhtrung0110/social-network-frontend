@@ -101,7 +101,7 @@ const request = async <Response>(
     options?.baseUrl === undefined ? envConfig.NEXT_PUBLIC_API_ENDPOINT : options.baseUrl;
 
   const fullUrl = url.startsWith('/') ? `${baseUrl}${url}` : `${baseUrl}/${url}`;
-  console.log('baseUrl: ' + fullUrl);
+  //console.log('baseUrl: ' + fullUrl);
 
   const res = await fetch(fullUrl, {
     ...options,
@@ -157,13 +157,13 @@ const request = async <Response>(
   }
   // Đảm bảo logic dưới đây chỉ chạy ở phía client (browser)
   if (typeof window !== 'undefined') {
-    console.log('Chay logic setToken', url, clientSessionToken);
+    //console.log('Chay logic setToken', url, clientSessionToken);
     if (['auth/login', 'auth/register'].some(item => item === normalizePath(url))) {
       console.log('set Token =value');
       clientSessionToken.value = (payload as LoginResType).data.accessToken;
       clientSessionToken.expiresAt = (payload as LoginResType).data.expiresAt;
     } else if ('auth/sign-out' === normalizePath(url)) {
-      console.log('Xoa Token rong');
+      // console.log('Xoa Token rong');
       clientSessionToken.value = '';
       clientSessionToken.expiresAt = new Date().toISOString();
     }

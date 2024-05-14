@@ -16,5 +16,14 @@ export type SN_Response = {
   message: string;
 };
 export type SearchParams = {
-  [key: string]: string;
+  [key: string]: string | number;
 };
+
+export interface MoreActionType {
+  key: number;
+  action: string;
+  label: string;
+  onAction: any;
+}
+
+export type SRType = 'new-feed' | 'post-detail';
