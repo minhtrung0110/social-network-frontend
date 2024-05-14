@@ -17,11 +17,10 @@ import { INavLink } from '@/types/snapgram';
 import { LEFT_SIDE_BAR_LINK, MORE_SIDEBAR } from '@/constrants/sidebar';
 import { ROUTES } from '@/constrants/route';
 import Image from 'next/image';
-import { UserAuth } from '@/types/user';
-import { useGlobalState } from '@/store/zustand';
+import { useAppContext } from '@/store/app-provider';
 
 interface LeftSideBarProps {
-  user: UserAuth | null;
+  key?: string;
 }
 
 export const MenuItemWrapper = styled.li`
@@ -34,13 +33,10 @@ export const MenuItemWrapper = styled.li`
 
 const LeftSideBar: React.FC<LeftSideBarProps> = props => {
   // const navigate = useNavigate();
-  const { user } = props;
+  const { key } = props;
   const pathname = usePathname();
   // Global State
-  const setUser = useGlobalState(state => state.setUser);
-  if (user) {
-    setUser(user);
-  }
+  const { user, setUser } = useAppContext();
   //const { user, setUser, setIsAuthenticated, isLoading } = useUserContext();
 
   //const { mutate: signOut } = useSignOutAccount();
@@ -56,9 +52,9 @@ const LeftSideBar: React.FC<LeftSideBarProps> = props => {
   const timezoneOffset = new Date().getTimezoneOffset();
   //console.log(timezoneOffset);
   return (
-    <nav className="left-sidebar ">
+    <nav className="left-sidebar " key={key}>
       <Link href={ROUTES.SNAP_GRAM.path} className="flex h-[100px] items-center mb-2">
-        <Image src="/assets/logo.svg" alt="logo" width={210} height={105} />
+        <Image src="/assets/logo.svg" alt="logo" priority={false} width={210} height={105} />
       </Link>
       <div className="flex flex-col gap-4 overflow-auto max-h-[480px]">
         <ul className="flex flex-col gap-4">
