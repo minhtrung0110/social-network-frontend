@@ -46,7 +46,7 @@ export const LEFT_SIDE_BAR_LINK: INavLink[] = [
   },
   {
     icon: PlusCircledIcon,
-    route: 'create',
+    route: '/post/create',
     label: 'Create',
   },
 ];

@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { differenceInHours } from 'date-fns';
 import authApiRequest from '@/api/auth';
-import { clientSessionToken } from '@/_lib/http';
+import { clientSessionToken } from '@/utils/http';
 
 export default function RenewSession() {
   useEffect(() => {
