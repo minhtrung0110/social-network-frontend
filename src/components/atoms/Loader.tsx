@@ -9,13 +9,15 @@ import { SpinnerIcon } from '@/components/atoms/icons';
 // Types
 
 interface Props {
-  size?: 's' | 'm' | 'l' | 'x' | 'xl';
+  size?: 'xs' | 's' | 'm' | 'l' | 'x' | 'xl';
 }
 
 const Loader: React.FC<Props> = (props) => {
   const { size } = props;
   const handleSize = (size: any) => {
     switch (size) {
+      case 'xs':
+        return 16;
       case 's':
         return 20;
       case 'm':
