@@ -8,8 +8,8 @@ import { useGetInfiniteFollows, useSearchFollow } from '@/queries/queries';
 import useDebounce from '@/hooks/useDebounce';
 import { useInView } from 'react-intersection-observer';
 import SearchUser from '@/app/(home)/components/molecules/SearchUser';
-import Loader from '@/components/atoms/Loader';
-import { QUERY_KEYS } from '@/constrants/queries'; // Component
+import { QUERY_KEYS } from '@/constrants/queries';
+import ListSearchUserSkeleton from '@/components/molecules/skeleton/ListSearchUser'; // Component
 
 // Component
 
@@ -19,6 +19,34 @@ import { QUERY_KEYS } from '@/constrants/queries'; // Component
 
 // Actions
 
+export type SearchResultProps = {
+  isSearchFetching: boolean;
+  searchedUsers: any;
+};
+export const SearchResults = ({ isSearchFetching = true, searchedUsers }: SearchResultProps) => {
+  if (isSearchFetching) {
+    return <ListSearchUserSkeleton />;
+  } else if (searchedUsers && searchedUsers.length > 0) {
+    return searchedUsers?.map((user: any) => (
+      <SearchUser key={`user-search-x${user?.id}`} user={user} />
+    ));
+  } else if (searchedUsers.length === 0) {
+    return <p className="text-light-4 mt-10 text-center w-full">No results found</p>;
+  }
+};
+export type BoxFollowUserProps = {
+  isFetching: boolean;
+  listUsers: any;
+};
+export const BoxFollowUser = ({ isFetching, listUsers }: BoxFollowUserProps) => {
+  if (isFetching) {
+    return <ListSearchUserSkeleton />;
+  } else
+    return listUsers?.pages.map((page: any) =>
+      page.map((user: any) => <SearchUser key={`user-search-x${user?.id}`} user={user} />),
+    );
+};
+
 interface DialogSearchProps {
   children: React.ReactNode;
   title: string;
@@ -26,81 +54,6 @@ interface DialogSearchProps {
   type: string;
   queryKey: string;
 }
-
-const listUserSearch = [
-  {
-    id: 1,
-    username: 'dh.baotrung',
-    firstName: 'Trung',
-    lastName: 'Nguyen Duc Minh',
-    avatar:
-      'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1713982059299_3592.jpg?alt=media',
-  },
-  {
-    id: 2,
-    username: 'dh.baotrung',
-    firstName: 'Trung',
-    lastName: 'Nguyen Duc Minh',
-    avatar:
-      'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1713982059299_3592.jpg?alt=media',
-  },
-  {
-    id: 3,
-    username: 'dh.baotrung',
-    firstName: 'Trung',
-    lastName: 'Nguyen Duc Minh',
-    avatar:
-      'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1713982059299_3592.jpg?alt=media',
-  },
-  {
-    id: 4,
-    username: 'dh.baotrung',
-    firstName: 'Trung',
-    lastName: 'Nguyen Duc Minh',
-    avatar:
-      'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1713982059299_3592.jpg?alt=media',
-  },
-  {
-    id: 5,
-    username: 'dh.baotrung',
-    firstName: 'Trung',
-    lastName: 'Nguyen Duc Minh',
-    avatar:
-      'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1713982059299_3592.jpg?alt=media',
-  },
-  {
-    id: 6,
-    username: 'dh.baotrung',
-    firstName: 'Trung',
-    lastName: 'Nguyen Duc Minh',
-    avatar:
-      'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1713982059299_3592.jpg?alt=media',
-  },
-  {
-    id: 7,
-    username: 'dh.baotrung',
-    firstName: 'Trung',
-    lastName: 'Nguyen Duc Minh',
-    avatar:
-      'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1713982059299_3592.jpg?alt=media',
-  },
-];
-
-export type SearchResultProps = {
-  isSearchFetching: boolean;
-  searchedUsers: any;
-};
-export const SearchResults = ({ isSearchFetching, searchedUsers }: SearchResultProps) => {
-  if (isSearchFetching) {
-    return <Loader />;
-  } else if (searchedUsers && searchedUsers.length > 0) {
-    return searchedUsers?.map((user: any) => (
-      <SearchUser key={`user-search-x${user?.id}`} user={user} />
-    ));
-  } else {
-    return <p className="text-light-4 mt-10 text-center w-full">No results found</p>;
-  }
-};
 
 const DialogSearch: React.FC<DialogSearchProps> = props => {
   const {
@@ -116,16 +69,16 @@ const DialogSearch: React.FC<DialogSearchProps> = props => {
   const { ref, inView } = useInView();
   const {
     data: listUsers,
+    isFetching,
     fetchNextPage,
     hasNextPage,
   } = useGetInfiniteFollows(queryKey, userId, type);
   const debouncedSearch = useDebounce(searchValue, 400);
-  const { data: searchedUsers, isFetching: isSearchFetching } = useSearchFollow(
+  const { data: searchedUsers = [], isFetching: isSearchFetching } = useSearchFollow(
     debouncedSearch,
     userId,
     type,
   );
-
   useEffect(() => {
     if (inView && !searchValue) {
       fetchNextPage();
@@ -133,7 +86,7 @@ const DialogSearch: React.FC<DialogSearchProps> = props => {
   }, [inView, searchValue]);
 
   // Handle
-  const shouldShowSearchResults = searchValue !== '';
+  const shouldShowSearchResults = debouncedSearch !== '';
   const shouldShowPosts =
     !shouldShowSearchResults && listUsers?.pages.every(item => item.length === 0);
 
@@ -164,11 +117,7 @@ const DialogSearch: React.FC<DialogSearchProps> = props => {
                 <span className="flex-center small-regular italic">End of Users</span>
               </div>
             ) : (
-              listUsers?.pages.map(page =>
-                page.map((user: any) => (
-                  <SearchUser key={`user-search-x${user?.id}`} user={user} />
-                )),
-              )
+              <BoxFollowUser isFetching={isFetching} listUsers={listUsers} />
             )}
 
             {hasNextPage && !searchValue && (
