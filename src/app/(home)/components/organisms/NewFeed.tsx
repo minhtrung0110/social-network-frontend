@@ -2,13 +2,13 @@
 // Libraries
 import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useGetInfinitePosts } from '@/queries/queries';
-import { PostCard } from '@/app/(home)/components/organisms/PostCard';
 import { TargetIcon } from '@radix-ui/react-icons';
 
 // Component
+import { PostCard } from '@/app/(home)/components/organisms/PostCard';
 
-// Style
+// Query
+import { useGetInfinitePosts } from '@/queries/queries';
 
 // Types
 
@@ -36,7 +36,7 @@ const NewFeed: React.FC<Props> = props => {
     <div className="home-posts">
       <ul className="flex flex-col flex-1 gap-9 w-full ">
         {listPosts?.pages?.map(page =>
-          page?.map(post => (
+          page?.map((post: any) => (
             <li key={post?.id} className="flex justify-center w-full">
               <PostCard post={post} />
             </li>

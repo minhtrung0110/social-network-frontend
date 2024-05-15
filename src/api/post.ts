@@ -23,12 +23,18 @@ const postApiRequest = {
       },
       cache: 'no-cache',
     }),
-  getByCondition: (userId: number, sessionToken: string) => {
-    const url = `/post/related/${userId}`;
+  getCompactByCondition: (params: SearchParams, sessionToken: string) => {
+    const url = `/post?${buildQueryString(params)}`;
     return http.get<ListPostResType>(url, {
       headers: {
         Authorization: `Bearer ${sessionToken}`,
       },
+      cache: 'no-cache',
+    });
+  },
+  getCompactPosts: (params: SearchParams) => {
+    const url = `/post?${buildQueryString(params)}`;
+    return http.get<ListPostResType>(url, {
       cache: 'no-cache',
     });
   },

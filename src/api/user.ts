@@ -18,6 +18,10 @@ const userApiRequest = {
       },
       cache: 'no-store',
     }),
+  getAll: () =>
+    http.get<AccountResType>(`user`, {
+      cache: 'no-store',
+    }),
 
   getUserById: (id: string, sessionToken: string) =>
     http.get<AccountResType>(`user/${id}`, {
@@ -30,12 +34,16 @@ const userApiRequest = {
     http.get<AccountResType>(`user/profile/${id}`, {
       cache: 'no-cache',
     }),
-  searchUser: (params: SearchParams, sessionToken: string) => {
-    const url = `user?${buildQueryString(params)}`;
-    return http.get<AccountResType>(url, {
+  getProfile: (id: number, sessionToken: string) =>
+    http.get(`user/profile/${id}`, {
       headers: {
         Authorization: `Bearer ${sessionToken}`,
       },
+      cache: 'no-cache',
+    }),
+  searchUser: (params: SearchParams) => {
+    const url = `user?${buildQueryString(params)}`;
+    return http.get<AccountResType>(url, {
       cache: 'no-cache',
     });
   },

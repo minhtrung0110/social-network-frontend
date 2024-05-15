@@ -35,7 +35,7 @@ interface PostCardProps {
 export const PostCard: React.FC<PostCardProps> = (props) => {
   // State
   const { post } = props;
-  const listTags = post.tags.includes(',') ? post.tags.split(',') : [post.tags];
+  const listTags = post?.tags?.includes(',') ? post?.tags?.split(',') : [post?.tags];
   const { user } = useAppContext();
   const listMoreActions = ACTIONS_POST_CARD;
   // const { data: profile, status } = useGetUserById(post.id);
