@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { ROUTES } from '@/constrants/route';
 import { useGetUserById } from '@/queries/queries';
 import { Skeleton } from '@/components/ui/skeleton';
+import Loader from '@/components/atoms/Loader';
 
 // Component
 
@@ -40,7 +41,7 @@ const ProfileMini: React.FC<Props> = (props) => {
         <div className={'flex-center w-[35%]'}>
           {user?.avatar ? (
             <Image
-              src={user.avatar}
+              src={user?.avatar}
               alt='profile'
               width='20'
               height='20'
@@ -62,11 +63,12 @@ const ProfileMini: React.FC<Props> = (props) => {
         </Link>
 
       </div>
-      <div className='flex gap-8 mt-2 base-medium items-center justify-center  flex-wrap '>
-        <StatBlock value={moreData?.userPosts?.length ?? 0} label='Posts' />
-        <StatBlock value={moreData?.followedBy?.length ?? 0} label='Followers' />
-        <StatBlock value={moreData?.following?.length ?? 0} label='Following' />
-      </div>
+      {status === 'pending' ? <Loader /> :
+        <div className='flex gap-8 mt-2 base-medium items-center justify-center  flex-wrap '>
+          <StatBlock value={moreData?._count?.userPosts ?? 0} label='Posts' />
+          <StatBlock value={moreData?._count.followedBy ?? 0} label='Followers' />
+          <StatBlock value={moreData?._count.following ?? 0} label='Following' />
+        </div>}
       {status === 'pending' ? <LoadingPost /> : (
         <div className={'flex-between flex-row gap-2'}>
           {
