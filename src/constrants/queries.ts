@@ -8,6 +8,9 @@ export enum QUERY_KEYS {
   GET_USERS_BY_USERNAME = 'getUsersByUsername',
   GET_USER_BY_ID = 'getUserById',
   GET_USER_PROFILE_BY_ID = 'getUserProfileById',
+  GET_INFINITE_USERS = 'getInfiniteUsers',
+  GET_INFINITE_FOLLOWERS = 'getInfiniteFollowers',
+  GET_INFINITE_FOLLOWINGS = 'getInfiniteFollowings',
 
   // POST KEYS
   GET_POSTS = 'getPosts',
@@ -39,6 +42,7 @@ export enum QUERY_KEYS {
 
   //  SEARCH KEYS
   SEARCH_POSTS = 'getSearchPosts',
+  SEARCH_USERS = 'getSearchUsers',
 }
 
 export const STALE_TIME = 50 * 1000;

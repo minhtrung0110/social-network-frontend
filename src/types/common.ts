@@ -16,7 +16,7 @@ export type SN_Response = {
   message: string;
 };
 export type SearchParams = {
-  [key: string]: string | number;
+  [key: string]: string | number | boolean;
 };
 
 export interface MoreActionType {
