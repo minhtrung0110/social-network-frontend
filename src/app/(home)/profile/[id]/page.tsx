@@ -1,5 +1,5 @@
 // Libraries
-import React from 'react';
+import React, { Suspense } from 'react';
 import { cookies } from 'next/headers';
 
 // Component
@@ -9,6 +9,7 @@ import ProfileStory from '@/app/(home)/profile/components/organisms/ProfileStory
 
 // Api
 import userApiRequest from '@/api/user';
+import Loader from '@/components/atoms/Loader';
 
 // Types
 
@@ -43,11 +44,14 @@ const ProfilePage: React.FC<ProfileProps> = async props => {
   const cookieStore = cookies();
   const sessionToken = cookieStore.get('sessionToken');
   const { data: currentUser } = await userApiRequest.getProfile(Number(id), sessionToken?.value ?? '');
-
+  
 
   return (
     <div className='profile-container'>
-      <ProfileInfo user={currentUser} profileId={id} />
+      <Suspense fallback={<Loader />}>
+        <ProfileInfo user={currentUser} profileId={id} />
+      </Suspense>
+
       <ProfileStory data={listStories} />
       <ProfilePost userId={currentUser?.id} />
     </div>

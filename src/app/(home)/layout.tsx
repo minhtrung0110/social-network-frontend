@@ -29,13 +29,14 @@ const Layout: React.FC<Props> = async (props) => {
   //   // user = data.payload.data;
   // }
   return (
-    <div className='w-full h-full md:flex'>
+    <div className='w-full h-full md:flex relative'>
       <LeftSideBar />
       <Suspense fallback={<Loading />}>
         <section className='flex flex-1 h-full max-h-[750px]'>
           {props.children}
         </section>
       </Suspense>
+
 
       <BottomBar />
 

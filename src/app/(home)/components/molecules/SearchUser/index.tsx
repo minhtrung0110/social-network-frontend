@@ -6,11 +6,12 @@ import Link from 'next/link';
 // Component
 import UserAdvance from '@/components/organisms/UserAdvance.tsx';
 import ProfileMini from '@/components/molecules/ProfileMini';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 
 // Constrant
 import { ROUTES } from '@/constrants/route';
+import { DotFilledIcon } from '@radix-ui/react-icons';
+import AvatarUser from '@/app/(home)/components/molecules/AvatarUser';
 
 // Types
 
@@ -18,10 +19,12 @@ import { ROUTES } from '@/constrants/route';
 
 interface SearchUserProps {
   user: any;
+  type?: 'follow' | 'user';
+  className?: string;
 }
 
 const SearchUser: React.FC<SearchUserProps> = props => {
-  const { user } = props;
+  const { user, type = 'follow', className = '' } = props;
   // State
 
   // Hooks
@@ -29,24 +32,37 @@ const SearchUser: React.FC<SearchUserProps> = props => {
   // Handle
 
   return (
-    <div className={'w-full flex flex-between'}>
+    <div className={`w-full flex flex-between ${className}`}>
       <Link href={`/${ROUTES.PROFILE.key}/${user.id}`} className={'flex-between'}>
-        <UserAdvance profile={<ProfileMini user={user} />}>
-          <Avatar>
-            <AvatarImage src={user.avatar}></AvatarImage>
-            <AvatarFallback>{user.firstName?.slice(0, 1)}</AvatarFallback>
-          </Avatar>
-        </UserAdvance>
-        <div className="flex flex-col fex-center ml-4">
+        {type === 'follow' ? (
+          <UserAdvance profile={<ProfileMini user={user} />}>
+            <AvatarUser firstName={user.firstName} avatar={user.avatar} story={true} />
+          </UserAdvance>
+        ) : (
+          <AvatarUser firstName={user.firstName} avatar={user.avatar} story={true} />
+        )}
+        <div className={`flex flex-col fex-center ml-4`}>
           <span className="body-bold">{user.username}</span>
-          <span className="base-regular italic">
-            {user.lastName} {user.firstName}
-          </span>
+          <div className={`flex base-regular italic ${type === 'user' ? 'flex-row' : ''}`}>
+            <span>
+              {user.lastName} {user.firstName}
+            </span>
+            {type === 'user' && (
+              <div className="flex flex-row items-center">
+                <DotFilledIcon />
+                <span className="base-regular italic">
+                  {user.followedBy.length} follower{user.followedBy.length > 1 ? 's' : ''}
+                </span>
+              </div>
+            )}
+          </div>
         </div>
       </Link>
-      <Button className={'h-8 flex-center base-regular bg-blue-500 hover:bg-blue-600 text-white'}>
-        Follow
-      </Button>
+      {type === 'follow' && (
+        <Button className={'h-8 flex-center base-regular bg-blue-500 hover:bg-blue-600 text-white'}>
+          Follow
+        </Button>
+      )}
     </div>
   );
 };

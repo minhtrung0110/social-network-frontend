@@ -5,18 +5,22 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import styled from 'styled-components';
+import Image from 'next/image';
 
 // Component
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import DropdownAdvance from '@/components/molecules/DropdownAdvance';
-import { MenuIcon } from '@/components/atoms/icons/MenuIcon'; // Style
+import { MenuIcon } from '@/components/atoms/icons/MenuIcon';
+import SearchBox from '@/components/organisms/SearchBox';
+
 // Types
 import { INavLink } from '@/types/snapgram';
 
 // Constraint
 import { LEFT_SIDE_BAR_LINK, MORE_SIDEBAR } from '@/constrants/sidebar';
 import { ROUTES } from '@/constrants/route';
-import Image from 'next/image';
+
+// Hooks
 import { useAppContext } from '@/store/app-provider';
 
 interface LeftSideBarProps {
@@ -36,20 +40,10 @@ const LeftSideBar: React.FC<LeftSideBarProps> = props => {
   const { key } = props;
   const pathname = usePathname();
   // Global State
-  const { user, setUser } = useAppContext();
-  //const { user, setUser, setIsAuthenticated, isLoading } = useUserContext();
+  const { user } = useAppContext();
 
-  //const { mutate: signOut } = useSignOutAccount();
-  const isLoading = false;
-  const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    //signOut();
-    // setIsAuthenticated(false);
-    // setUser(INITIAL_USER);
-    // navigate(ROUTES.LOGIN.path);
-  };
-  const { theme, setTheme } = useTheme();
-  const timezoneOffset = new Date().getTimezoneOffset();
+  const { setTheme } = useTheme();
+
   //console.log(timezoneOffset);
   return (
     <nav className="left-sidebar " key={key}>
@@ -60,7 +54,7 @@ const LeftSideBar: React.FC<LeftSideBarProps> = props => {
         <ul className="flex flex-col gap-4">
           {LEFT_SIDE_BAR_LINK.map((link: INavLink) => {
             const isActive = pathname === link.route;
-            return (
+            return link.route !== '#' ? (
               <MenuItemWrapper
                 key={link.label}
                 className={`left-sidebar-link group ${isActive && 'bg-secondary'}`}
@@ -70,6 +64,18 @@ const LeftSideBar: React.FC<LeftSideBarProps> = props => {
                   {link.label}
                 </Link>
               </MenuItemWrapper>
+            ) : (
+              <SearchBox>
+                <MenuItemWrapper
+                  key={link.label}
+                  className={`left-sidebar-link group ${isActive && 'bg-secondary'}`}
+                >
+                  <div className="link flex gap-4 items-center p-4">
+                    <link.icon className={'icon'} width="22" height="22" />
+                    {link.label}
+                  </div>
+                </MenuItemWrapper>
+              </SearchBox>
             );
           })}
         </ul>

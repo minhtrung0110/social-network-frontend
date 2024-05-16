@@ -9,7 +9,8 @@ import useDebounce from '@/hooks/useDebounce';
 import { useInView } from 'react-intersection-observer';
 import SearchUser from '@/app/(home)/components/molecules/SearchUser';
 import { QUERY_KEYS } from '@/constrants/queries';
-import ListSearchUserSkeleton from '@/components/molecules/skeleton/ListSearchUser'; // Component
+import ListSearchUserSkeleton from '@/components/molecules/skeleton/ListSearchUser';
+import { isEmpty } from 'lodash'; // Component
 
 // Component
 
@@ -28,9 +29,9 @@ export const SearchResults = ({ isSearchFetching = true, searchedUsers }: Search
     return <ListSearchUserSkeleton />;
   } else if (searchedUsers && searchedUsers.length > 0) {
     return searchedUsers?.map((user: any) => (
-      <SearchUser key={`user-search-x${user?.id}`} user={user} />
+      <SearchUser type={'follow'} key={`user-search-x${user?.id}`} user={user} />
     ));
-  } else if (searchedUsers.length === 0) {
+  } else if (isEmpty(searchedUsers)) {
     return <p className="text-light-4 mt-10 text-center w-full">No results found</p>;
   }
 };

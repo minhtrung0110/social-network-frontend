@@ -21,27 +21,27 @@ export const LEFT_SIDE_BAR_LINK: INavLink[] = [
 
   {
     icon: MagnifyingGlassIcon,
-    route: 'search',
+    route: '#',
     label: 'Search',
   },
   {
     icon: RocketIcon,
-    route: 'explore',
+    route: '/explore',
     label: 'Explore',
   },
   {
     icon: PaperPlaneIcon,
-    route: 'message',
+    route: '/message',
     label: 'Message',
   },
   {
     icon: BookmarkIcon,
-    route: 'saved',
+    route: '/saved',
     label: 'Saved',
   },
   {
     icon: HeartIcon,
-    route: 'notifications',
+    route: '/notifications',
     label: 'Notifications',
   },
   {

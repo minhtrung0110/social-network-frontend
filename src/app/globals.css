@@ -211,8 +211,11 @@
 
     /* Left sidebar */
     .left-sidebar {
-        @apply hidden md:flex px-6 pt-2 pb-2 flex-col justify-between min-w-[280px] min-h-[745px]  border-r border-gray-600 relative;
+        @apply hidden md:flex md:px-3 sm:px-1 pt-2 pb-2 flex-col justify-between
+        md:min-w-[220px] min-h-[745px]   sm:min-w-[80px]
+        border-r border-gray-600 relative
     }
+
 
     /*md:flex*/
     .left-sidebar-link {
