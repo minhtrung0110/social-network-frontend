@@ -2,7 +2,6 @@ import { INavLink } from '@/types/snapgram';
 import { GearIcon } from '@/components/atoms/icons/GearIcon';
 import { MoonIcon } from '@/components/atoms/icons/MoonIcon';
 import {
-  BookmarkIcon,
   CaretLeftIcon,
   HeartIcon,
   HomeIcon,
@@ -34,11 +33,7 @@ export const LEFT_SIDE_BAR_LINK: INavLink[] = [
     route: '/message',
     label: 'Message',
   },
-  {
-    icon: BookmarkIcon,
-    route: '/saved',
-    label: 'Saved',
-  },
+ 
   {
     icon: HeartIcon,
     route: '/notifications',

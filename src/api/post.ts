@@ -38,6 +38,15 @@ const postApiRequest = {
       cache: 'no-cache',
     });
   },
+  getCompactPostsWithToken: (params: SearchParams, sessionToken: string) => {
+    const url = `/post?${buildQueryString(params)}`;
+    return http.get<ListPostResType>(url, {
+      headers: {
+        Authorization: `Bearer ${sessionToken}`,
+      },
+      cache: 'no-cache',
+    });
+  },
   sendCreatePostToNextServer: (body: CreatePostType) =>
     http.post<ApiResType>('/api/post', body, {
       baseUrl: '',
