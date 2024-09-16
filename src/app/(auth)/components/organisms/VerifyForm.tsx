@@ -15,7 +15,7 @@ import { z } from 'zod';
 import authApiRequest from '@/api/auth';
 import { toast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
-import { ROUTES } from '@/constrants/route';
+import { ROUTES } from '@/constraints/route';
 
 // Component
 

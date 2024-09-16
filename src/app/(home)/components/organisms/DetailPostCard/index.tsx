@@ -2,7 +2,7 @@
 // Libraries
 import React from 'react';
 import Link from 'next/link';
-import { ROUTES } from '@/constrants/route';
+import { ROUTES } from '@/constraints/route';
 import AvatarUser from '@/app/(home)/components/molecules/AvatarUser';
 import { EditIcon, MoreIcon, ProfileIcon } from '@/components/atoms/icons';
 import UserAdvance from '@/components/organisms/UserAdvance.tsx';

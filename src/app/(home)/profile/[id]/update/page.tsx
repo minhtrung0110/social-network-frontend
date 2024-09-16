@@ -1,15 +1,15 @@
 // Libraries
 import React, { Suspense } from 'react';
-import { EditIcon } from '@/components/atoms/icons';
-
 import { cookies } from 'next/headers';
-import userApiRequest from '@/api/user';
-import Loader from '@/components/atoms/Loader';
-import FormProfile from '../../components/organisms/FormProfile';
 
 // Component
+import Loader from '@/components/atoms/Loader';
+import FormProfile from '../../components/organisms/FormProfile';
+import { EditIcon } from '@/components/atoms/icons';
 
-// Style
+// Api
+import userApiRequest from '@/api/user';
+
 
 // Types
 

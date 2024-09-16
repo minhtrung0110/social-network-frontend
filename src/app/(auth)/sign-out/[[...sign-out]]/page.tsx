@@ -4,7 +4,7 @@ import { clientSessionToken } from '@/utils/http';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import authApiRequest from '@/api/auth';
-import { ROUTES } from '@/constrants/route';
+import { ROUTES } from '@/constraints/route';
 
 export default function Logout() {
   const router = useRouter();

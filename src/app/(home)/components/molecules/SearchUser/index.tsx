@@ -9,7 +9,7 @@ import ProfileMini from '@/components/molecules/ProfileMini';
 import { Button } from '@/components/ui/button';
 
 // Constrant
-import { ROUTES } from '@/constrants/route';
+import { ROUTES } from '@/constraints/route';
 import { DotFilledIcon } from '@radix-ui/react-icons';
 import AvatarUser from '@/app/(home)/components/molecules/AvatarUser';
 

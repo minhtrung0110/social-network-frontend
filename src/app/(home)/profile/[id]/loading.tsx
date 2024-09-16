@@ -1,12 +1,9 @@
 // Libraries
 import React from 'react';
-import { SpinnerIcon } from '@/components/atoms/icons';
 
 // Component
+import { SpinnerIcon } from '@/components/atoms/icons';
 
-// Constrant
-
-// Types
 
 // Actions
 

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { MoreIcon, ProfileIcon } from '@/components/atoms/icons';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ROUTES } from '@/constrants/route';
+import { ROUTES } from '@/constraints/route';
 import UpdateUserNameForm from '@/app/(home)/profile/components/organisms/UpdateUserNameForm';
 import { useAppContext } from '@/store/app-provider';
 import { ChatBubbleIcon, Crosshair2Icon, Pencil2Icon } from '@radix-ui/react-icons';
@@ -13,7 +13,7 @@ import { handleCheckUserExist } from '@/utils/util';
 import { ConfirmDialog } from '@/components/molecules/AlertDialog';
 import { createFollow, deleteFollow } from '@/actions/follow';
 import DialogSearch from '@/app/(home)/components/organisms/DialogSearch';
-import { QUERY_KEYS } from '@/constrants/queries';
+import { QUERY_KEYS } from '@/constraints/queries';
 
 // Component
 

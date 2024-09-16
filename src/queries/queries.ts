@@ -1,6 +1,6 @@
 import { Updater, useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import userApiRequest from '@/api/user';
-import { CACHE_TIME, QUERY_KEYS, STALE_TIME } from '@/constrants/queries';
+import { CACHE_TIME, QUERY_KEYS, STALE_TIME } from '@/constraints/queries';
 import { SearchParams } from '@/types/common';
 import commentApiRequest from '@/api/comment';
 import { Comment, CreateComment } from '@/schema/comment.schema';
@@ -91,7 +91,7 @@ export const useGetInfinitePosts = () => {
 
 export const useGetInfiniteCompactPosts = (userId: number) => {
   return useInfiniteQuery({
-    queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
+    queryKey: [QUERY_KEYS.GET_INFINITE_COMPACT_POSTS],
     queryFn: ({ pageParam }) => handleGetInfiniteCompactPosts(userId, pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages, lastPageParam) => {

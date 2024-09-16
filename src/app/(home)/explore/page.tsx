@@ -1,16 +1,14 @@
 // Libraries
 import React from 'react';
 import { cookies } from 'next/headers';
-import postApiRequest from '@/api/post';
 import { isEmpty } from 'lodash';
+
+// Components
 import Loader from '@/components/atoms/Loader';
 import CardImage from '@/app/(home)/components/molecules/CardImage';
 
-// Component
-
-// Constraint
-
-// Types
+// Api
+import postApiRequest from '@/api/post';
 
 // Actions
 

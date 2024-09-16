@@ -8,7 +8,7 @@ import { useGetInfiniteFollows, useSearchFollow } from '@/queries/queries';
 import useDebounce from '@/hooks/useDebounce';
 import { useInView } from 'react-intersection-observer';
 import SearchUser from '@/app/(home)/components/molecules/SearchUser';
-import { QUERY_KEYS } from '@/constrants/queries';
+import { QUERY_KEYS } from '@/constraints/queries';
 import ListSearchUserSkeleton from '@/components/molecules/skeleton/ListSearchUser';
 import { isEmpty } from 'lodash'; // Component
 

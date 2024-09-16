@@ -11,6 +11,7 @@ import { cookies } from 'next/headers';
 import userApiRequest from '@/api/user';
 import { FullUser } from '@/schema/user.schema';
 import { QueryProvider } from '@/queries/QueryProvider';
+import StoryMode from '@/app/(home)/components/organisms/StoryMode';
 
 const roboto = Roboto({
   weight: ['400', '700', '500', '900'],
@@ -51,9 +52,10 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <QueryProvider>
-            <AppProvider inititalSessionToken={sessionToken?.value} user={user}>
+            <AppProvider inititalSessionToken={sessionToken?.value ?? ''} user={user}>
               {children}
               <RenewSession />
+              <StoryMode />
             </AppProvider>
           </QueryProvider>
         </ThemeProvider>

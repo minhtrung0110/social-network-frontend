@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { checkPrivateRoute } from '@/utils/util';
-import { ROUTES, SNRoute } from '@/constrants/route';
+import { ROUTES, SNRoute } from '@/constraints/route';
 
 // @ts-ignore
 const privatePaths: string[] = Object.values(ROUTES).reduce((acc: string[], item: SNRoute) => {

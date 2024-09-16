@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card } from '@/components/ui/card';
 import { AvatarIcon, Component2Icon, VideoIcon } from '@radix-ui/react-icons';
-import { TEMP_LIST_POST } from '@/constrants/common';
+import { TEMP_LIST_POST } from '@/constraints/common';
 import CardImage from '@/app/(home)/components/molecules/CardImage';
 import { useGetInfiniteCompactPosts } from '@/queries/queries'; // Component
 import { useInView } from 'react-intersection-observer';

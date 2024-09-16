@@ -28,9 +28,8 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import uploadApiRequest from '@/api/upload';
 import postApiRequest from '@/api/post';
 
-// Style
 // Types
-import { ROUTES } from '@/constrants/route';
+import { ROUTES } from '@/constraints/route';
 import { useAppContext } from '@/store/app-provider';
 import { useUpdatePost } from '@/queries/queries';
 

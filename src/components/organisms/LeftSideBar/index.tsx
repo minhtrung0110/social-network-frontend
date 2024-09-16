@@ -17,8 +17,8 @@ import SearchBox from '@/components/organisms/SearchBox';
 import { INavLink } from '@/types/snapgram';
 
 // Constraint
-import { LEFT_SIDE_BAR_LINK, MORE_SIDEBAR } from '@/constrants/sidebar';
-import { ROUTES } from '@/constrants/route';
+import { LEFT_SIDE_BAR_LINK, MORE_SIDEBAR } from '@/constraints/sidebar';
+import { ROUTES } from '@/constraints/route';
 
 // Hooks
 import { useAppContext } from '@/store/app-provider';

@@ -1,11 +1,11 @@
 'use client';
 // Libraries
 import React from 'react';
-import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 // Component
+import { Button } from '@/components/ui/button';
 
 // Style
 
@@ -15,7 +15,7 @@ interface Props {
   // Define your component's props here
 }
 
-const HeaderPostDeatil: React.FC<Props> = props => {
+const HeaderPostDetail: React.FC<Props> = props => {
   const router = useRouter();
   return (
     <div className="hidden md:flex max-w-5xl w-full">
@@ -27,4 +27,4 @@ const HeaderPostDeatil: React.FC<Props> = props => {
   );
 };
 
-export default HeaderPostDeatil;
+export default HeaderPostDetail;

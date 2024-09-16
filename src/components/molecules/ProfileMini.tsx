@@ -7,7 +7,7 @@ import { StatBlock } from '@/app/(home)/profile/components/organisms/ProfileInfo
 import { Button } from '@/components/ui/button';
 import { Crosshair2Icon, PaperPlaneIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
-import { ROUTES } from '@/constrants/route';
+import { ROUTES } from '@/constraints/route';
 import { useGetUserById } from '@/queries/queries';
 import { Skeleton } from '@/components/ui/skeleton';
 import Loader from '@/components/atoms/Loader';
