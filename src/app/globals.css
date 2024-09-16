@@ -59,12 +59,87 @@
         --gradient: linear-gradient(to right, #FF69B4, #FF1493, #FF00FF, #C71585);
     }
 
+    .theme-light {
+        --brand-primary: rgb(47, 112, 193);
+        --brand-secondary: rgb(116, 97, 195);
+        --brand-alternative: rgb(19, 120, 134);
+        --background-site: rgb(249, 249, 249);
+        --background-code: rgb(244, 244, 244);
+        --text-body: rgb(54, 49, 61);
+        --text-comment: rgb(99, 94, 105);
+        --text-high-contrast: rgb(49, 49, 49);
+        --text-medium-contrast: rgb(99, 94, 105);
+        --text-low-contrast: rgb(116, 109, 118);
+        --detail-high-contrast: rgb(192, 192, 192);
+        --detail-medium-contrast: rgb(234, 234, 234);
+        --detail-low-contrast: rgb(240, 240, 242);
+        --admonition-note: rgb(46, 109, 188);
+        --admonition-warning: rgb(255, 196, 9);
+        --admonition-danger: rgb(220, 38, 38);
+        --brand-primary-rgb-value: 47, 112, 193;
+        --brand-secondary-rgb-value: 116, 97, 195;
+        --brand-alternative-rgb-value: 19, 120, 134;
+        --background-site-rgb-value: 249, 249, 249;
+        --background-code-rgb-value: 244, 244, 244;
+        --text-body-rgb-value: 54, 49, 61;
+        --text-comment-rgb-value: 99, 94, 105;
+        --text-high-contrast-rgb-value: 49, 49, 49;
+        --text-medium-contrast-rgb-value: 99, 94, 105;
+        --text-low-contrast-rgb-value: 116, 109, 118;
+        --detail-high-contrast-rgb-value: 192, 192, 192;
+        --detail-medium-contrast-rgb-value: 234, 234, 234;
+        --detail-low-contrast-rgb-value: 240, 240, 242;
+        --admonition-note-rgb-value: 46, 109, 188;
+        --admonition-warning-rgb-value: 255, 196, 9;
+        --admonition-danger-rgb-value: 220, 38, 38;
+    }
+
+    .theme-dark {
+        --brand-primary: rgb(138, 180, 248);
+        --brand-secondary: rgb(193, 168, 226);
+        --brand-alternative: rgb(136, 186, 191);
+        --background-site: rgb(0, 0, 0);
+        --background-code: rgb(12, 12, 12);
+        --text-body: rgb(222, 222, 222);
+        --text-comment: rgb(170, 170, 170);
+        --text-high-contrast: rgb(230, 230, 230);
+        --text-medium-contrast: rgb(202, 202, 202);
+        --text-low-contrast: rgb(170, 170, 170);
+        --detail-high-contrast: rgb(101, 101, 101);
+        --detail-medium-contrast: rgb(25, 25, 25);
+        --detail-low-contrast: rgb(21, 21, 21);
+        --admonition-note: rgb(138, 180, 248);
+        --admonition-warning: rgb(253, 186, 116);
+        --admonition-danger: rgb(220, 38, 38);
+        --brand-primary-rgb-value: 138, 180, 248;
+        --brand-secondary-rgb-value: 193, 168, 226;
+        --brand-alternative-rgb-value: 136, 186, 191;
+        --background-site-rgb-value: 0, 0, 0;
+        --background-code-rgb-value: 12, 12, 12;
+        --text-body-rgb-value: 222, 222, 222;
+        --text-comment-rgb-value: 170, 170, 170;
+        --text-high-contrast-rgb-value: 230, 230, 230;
+        --text-medium-contrast-rgb-value: 202, 202, 202;
+        --text-low-contrast-rgb-value: 170, 170, 170;
+        --detail-high-contrast-rgb-value: 101, 101, 101;
+        --detail-medium-contrast-rgb-value: 25, 25, 25;
+        --detail-low-contrast-rgb-value: 21, 21, 21;
+        --admonition-note-rgb-value: 138, 180, 248;
+        --admonition-warning-rgb-value: 253, 186, 116;
+        --admonition-danger-rgb-value: 220, 38, 38;
+    }
+
+
     * {
         @apply box-border list-none p-0 m-0 scroll-smooth;
     }
 
     body {
         @apply min-h-screen font-inter;
+    }
+
+    div {
+        @apply box-border;
     }
 }
 
@@ -211,8 +286,11 @@
 
     /* Left sidebar */
     .left-sidebar {
-        @apply hidden md:flex px-6 pt-2 pb-2 flex-col justify-between min-w-[280px] min-h-[745px]  border-r border-gray-600 relative;
+        @apply hidden md:flex md:px-3 sm:px-1 pt-2 pb-2 flex-col justify-between
+        md:min-w-[220px] min-h-[745px]   sm:min-w-[80px]
+        border-r border-gray-600 relative
     }
+
 
     /*md:flex*/
     .left-sidebar-link {
@@ -339,12 +417,21 @@
     }
 
     .action-icon {
-        @apply mr-5 cursor-pointer hover:text-gray-400 hover:scale-[1.1] font-bold
+        @apply mr-5 cursor-pointer hover:text-gray-400 hover:scale-[1.1] font-bold flex-shrink-0
     }
 
     /*PostCardDetail*/
     .list-comments-postcard-detail {
         @apply overflow-y-auto min-h-[340px] max-h-[360px] custom-scrollbar border-t border-gray-700
+    }
+
+    .postcard-skeleton {
+        @apply overflow-y-auto w-[500px] min-h-[300px] max-h-[550px] custom-scrollbar border-t border-gray-700
+    }
+
+    /* Story */
+    .story-card_img {
+        @apply h-52 xs:h-[400px] lg:h-[400px] w-[380px] rounded-[6px] object-cover mb-5;
     }
 
     /* Topbar */
@@ -395,6 +482,137 @@
     .shad-button_ghost {
         @apply flex gap-4 items-center justify-start hover:bg-transparent hover:text-white !important;
     }
+
+    /* CarouselEmbla */
+    .embla {
+        max-width: 48rem;
+        margin: auto;
+        --slide-height: 19rem;
+        --slide-spacing: 1rem;
+        --slide-size: 55%;
+    }
+
+    .embla__viewport {
+        overflow: visible;
+    }
+
+    .embla__container {
+        backface-visibility: hidden;
+        display: flex;
+        touch-action: pan-y pinch-zoom;
+        margin-left: calc(var(--slide-spacing) * -1);
+    }
+
+    .embla__slide {
+        flex: 0 0 var(--slide-size);
+        min-width: 0;
+        padding-left: var(--slide-spacing);
+    }
+
+    .embla__slide__number {
+        box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
+        border-radius: 1.8rem;
+        font-size: 4rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: var(--slide-height);
+    }
+
+    .embla__controls {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        justify-content: space-between;
+        gap: 1.2rem;
+        margin-top: 1.8rem;
+    }
+
+    .embla__buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.6rem;
+        align-items: center;
+    }
+
+    .embla__button {
+        -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: transparent;
+        touch-action: manipulation;
+        display: inline-flex;
+        text-decoration: none;
+        cursor: pointer;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
+        width: 3.6rem;
+        height: 3.6rem;
+        z-index: 1;
+        border-radius: 50%;
+        color: var(--text-body);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .embla__button:disabled {
+        color: var(--detail-high-contrast);
+    }
+
+    .embla__button__svg {
+        width: 35%;
+        height: 35%;
+    }
+
+    .embla__dots {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-items: center;
+        margin-right: calc((2.6rem - 1.4rem) / 2 * -1);
+    }
+
+    .embla__dot {
+        -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: transparent;
+        touch-action: manipulation;
+        display: inline-flex;
+        text-decoration: none;
+        cursor: pointer;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        width: 2.6rem;
+        height: 2.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+
+    .embla__dot:after {
+        box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
+        width: 1.4rem;
+        height: 1.4rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        content: '';
+    }
+
+    .embla__dot--selected:after {
+        box-shadow: inset 0 0 0 0.2rem var(--text-body);
+    }
+
+    .embla__slide__number {
+        backface-visibility: hidden;
+    }
+
 }
 
 /* Chrome, Edge, and Safari */

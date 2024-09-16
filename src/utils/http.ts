@@ -101,7 +101,7 @@ const request = async <Response>(
     options?.baseUrl === undefined ? envConfig.NEXT_PUBLIC_API_ENDPOINT : options.baseUrl;
 
   const fullUrl = url.startsWith('/') ? `${baseUrl}${url}` : `${baseUrl}/${url}`;
-  //console.log('baseUrl: ' + fullUrl);
+  console.log('baseUrl: ' + fullUrl);
 
   const res = await fetch(fullUrl, {
     ...options,

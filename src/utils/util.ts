@@ -158,7 +158,28 @@ export function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
 }
 
-
-export const handleCheckUserExist = (array: { userId: number }[], userId: number, key = 'userId') => {
+export const handleCheckUserExist = (
+  array: { userId: number }[],
+  userId: number,
+  key = 'userId',
+) => {
   return array?.some(item => item[key] === userId);
 };
+
+/**
+ * Generates an array with a specified number of elements.
+ *
+ * @param {number} params.amount - The number of elements in the array.
+ * @returns {number[]} An array with the specified number of elements, each initialized to its index.
+ *
+ * @example
+ * // Generates an array with 5 elements: [0, 1, 2, 3, 4]
+ * const result = generateArray({ amount: 5 });
+ * console.log(result); // Output: [0, 1, 2, 3, 4]
+ * @param amount
+ */
+export function generateArray(amount: number) {
+  return (amount < 0) ? [] : Array.from({ length: amount }, (_, index) => index);
+}
+
+// Example usage

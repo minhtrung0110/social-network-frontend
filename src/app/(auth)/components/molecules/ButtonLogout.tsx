@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import authApiRequest from '@/api/auth';
 import { PinLeft } from '@/components/atoms/icons/PinLeft';
 import React from 'react';
-import { ROUTES } from '@/constrants/route';
+import { ROUTES } from '@/constraints/route';
 
 export default function ButtonLogout() {
   const router = useRouter();

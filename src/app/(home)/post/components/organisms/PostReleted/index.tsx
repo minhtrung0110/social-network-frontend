@@ -1,9 +1,9 @@
 'use client';
 // Libraries
 import React from 'react';
-import CardImage from '@/app/(home)/components/molecules/CardImage';
 
 // Component
+import CardImage from '@/app/(home)/components/molecules/CardImage';
 
 // Style
 

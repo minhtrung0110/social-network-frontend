@@ -1,12 +1,9 @@
 'use client';
 // Libraries
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useGetInfiniteComments } from '@/queries/queries';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import Picker from '@emoji-mart/react';
-import data from '@emoji-mart/data';
-import { EmotionIcon } from '@/components/atoms/icons';
+import InputSearch from '@/components/molecules/InputSearch';
 
 // Component
 
@@ -28,31 +25,25 @@ const Page: React.FC<Props> = props => {
   const { data: posts, fetchNextPage, hasNextPage } = useGetInfiniteComments(4);
 
   console.log('Cheking infinity:', posts);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const handleSearch = (value: string) => {
+    console.log('Searching:', value);
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  };
   return (
-    <div className={'flex item-center w-full '}>
-      Saved
+    <div className={'flex w-full flex-col '}>
       <Button onClick={() => fetchNextPage()}>Call APi</Button>
-      <Popover modal={true}>
-        <PopoverTrigger asChild>
-          <Button>
-            <EmotionIcon
-              width={20}
-              height={20}
-              className={'cursor-pointer fill-pink-500'}
-              //onClick={handleEmotionIconClick}
-            />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent>
-          <Picker
-            data={data}
-            //onSelect={handleEmojiPickup}
-            // onClick={f}
-            //onEmojiSelect={handleEmojiPickup}
-          />
-        </PopoverContent>
-      </Popover>
+      <div className={'flex-center w-[400px] h-full p-2 '}>
+        <InputSearch
+          placeholder={'Search...'}
+          className={'h-12 w-full '}
+          isLoading={isLoading}
+          onSearch={handleSearch}
+        />
+      </div>
     </div>
   );
 };

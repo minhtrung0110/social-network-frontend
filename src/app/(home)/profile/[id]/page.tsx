@@ -1,16 +1,15 @@
 // Libraries
-import React from 'react';
-import Loader from '@/components/atoms/Loader';
-import userApiRequest from '@/api/user';
+import React, { Suspense } from 'react';
 import { cookies } from 'next/headers';
+
+// Component
 import ProfileInfo from '../components/organisms/ProfileInfo';
 import ProfilePost from '@/app/(home)/profile/components/organisms/ProfilePost';
 import ProfileStory from '@/app/(home)/profile/components/organisms/ProfileStory';
 
-
-// Component
-
-// Style
+// Api
+import userApiRequest from '@/api/user';
+import Loader from '@/components/atoms/Loader';
 
 // Types
 
@@ -44,62 +43,17 @@ const ProfilePage: React.FC<ProfileProps> = async props => {
   const { id } = props.params;
   const cookieStore = cookies();
   const sessionToken = cookieStore.get('sessionToken');
-  const res = await userApiRequest.getUserById(id, sessionToken?.value ?? '');
-  const currentUser = res.data;
-  if (!currentUser)
-    return (
-      <div className='flex-center w-full h-full'>
-        <Loader />
-      </div>
-    );
+  const { data: currentUser } = await userApiRequest.getProfile(Number(id), sessionToken?.value ?? '');
+  
+
   return (
     <div className='profile-container'>
-      <ProfileInfo user={currentUser} />
+      <Suspense fallback={<Loader />}>
+        <ProfileInfo user={currentUser} profileId={id} />
+      </Suspense>
+
       <ProfileStory data={listStories} />
-      <ProfilePost />
-
-
-      {/*{currentUser.$id === user.id && (*/}
-      {/*  <div className='flex max-w-5xl w-full'>*/}
-      {/*    <Link*/}
-      {/*      to={`/profile/${id}`}*/}
-      {/*      className={`profile-tab rounded-l-lg ${*/}
-      {/*        pathname === `/profile/${id}` && '!bg-dark-3'*/}
-      {/*      }`}>*/}
-      {/*      <img*/}
-      {/*        src={'/assets/icons/posts.svg'}*/}
-      {/*        alt='posts'*/}
-      {/*        width={20}*/}
-      {/*        height={20}*/}
-      {/*      />*/}
-      {/*      Posts*/}
-      {/*    </Link>*/}
-      {/*    <Link*/}
-      {/*      to={`/profile/${id}/liked-posts`}*/}
-      {/*      className={`profile-tab rounded-r-lg ${*/}
-      {/*        pathname === `/profile/${id}/liked-posts` && '!bg-dark-3'*/}
-      {/*      }`}>*/}
-      {/*      <img*/}
-      {/*        src={'/assets/icons/like.svg'}*/}
-      {/*        alt='like'*/}
-      {/*        width={20}*/}
-      {/*        height={20}*/}
-      {/*      />*/}
-      {/*      Liked Posts*/}
-      {/*    </Link>*/}
-      {/*  </div>*/}
-      {/*)}*/}
-
-      {/*<Routes>*/}
-      {/*  <Route*/}
-      {/*    index*/}
-      {/*    element={<GridPostList posts={currentUser.posts} showUser={false} />}*/}
-      {/*  />*/}
-      {/*  {currentUser.$id === user.id && (*/}
-      {/*    <Route path='/liked-posts' element={<LikedPosts />} />*/}
-      {/*  )}*/}
-      {/*</Routes>*/}
-      {/*<Outlet />*/}
+      <ProfilePost userId={currentUser?.id} />
     </div>
   );
 };

@@ -73,7 +73,11 @@ export const multiFormatDateString = (timestamp: string = ''): string => {
   // Determine the format based on the time difference
   switch (true) {
     case Math.floor(diffInDays) >= 30:
-      return formatDateString(timestamp); // Use formatDateString function for dates older than 30 days
+      console.log('TestL', diffInDays, Math.floor(diffInDays / 30));
+      const month = Math.floor(diffInDays / 30);
+      return `${month} month${month > 1 ? 's' : ''} ago`;// Use formatDateString function for dates older than 30 days
+    case Math.floor(diffInDays) > 365:
+      return formatDateString(timestamp);
     case Math.floor(diffInDays) === 1:
       return `${Math.floor(diffInDays)} day ago`;
     case Math.floor(diffInDays) > 1 && diffInDays < 30:
@@ -82,6 +86,7 @@ export const multiFormatDateString = (timestamp: string = ''): string => {
       return `${Math.floor(diffInHours)} hours ago`;
     case Math.floor(diffInMinutes) >= 1:
       return `${Math.floor(diffInMinutes)} minutes ago`;
+
     default:
       return 'Just now';
   }

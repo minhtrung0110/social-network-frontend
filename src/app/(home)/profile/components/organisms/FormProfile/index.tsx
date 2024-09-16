@@ -27,7 +27,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import uploadApiRequest from '@/api/upload';
 import userApiRequest from '@/api/user';
-import { ROUTES } from '@/constrants/route';
+import { ROUTES } from '@/constraints/route';
 import { useAppContext } from '@/store/app-provider';
 // Component
 

@@ -1,14 +1,19 @@
 'use client';
 // Libraries
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { MoreIcon, ProfileIcon } from '@/components/atoms/icons';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ROUTES } from '@/constrants/route';
+import { ROUTES } from '@/constraints/route';
 import UpdateUserNameForm from '@/app/(home)/profile/components/organisms/UpdateUserNameForm';
 import { useAppContext } from '@/store/app-provider';
 import { ChatBubbleIcon, Crosshair2Icon, Pencil2Icon } from '@radix-ui/react-icons';
+import { handleCheckUserExist } from '@/utils/util';
+import { ConfirmDialog } from '@/components/molecules/AlertDialog';
+import { createFollow, deleteFollow } from '@/actions/follow';
+import DialogSearch from '@/app/(home)/components/organisms/DialogSearch';
+import { QUERY_KEYS } from '@/constraints/queries';
 
 // Component
 
@@ -23,7 +28,7 @@ interface StabBlockProps {
 }
 
 export const StatBlock = ({ value, label, size = 'big' }: StabBlockProps) => (
-  <div className="flex-center gap-2">
+  <div className="flex-center cursor-pointer gap-2">
     <p className={`base-bold lg:body-bold text-primary-500`}>{value}</p>
     <p className={`small-medium lg:base-medium text-light-2`}>{label}</p>
   </div>
@@ -31,12 +36,24 @@ export const StatBlock = ({ value, label, size = 'big' }: StabBlockProps) => (
 
 interface Props {
   user: any;
+  profileId: string;
 }
 
 const ProfileInfo: React.FC<Props> = props => {
-  const { user } = props;
+  const { user, profileId } = props;
   const { user: currentUser } = useAppContext();
-  console.log(user.id === currentUser?.id);
+  const [isFollowed, setIsFollowed] = useState<boolean>(
+    handleCheckUserExist(user.followedBy, currentUser?.id),
+  );
+  // Handle
+
+  const handleFollow = async () => {
+    const res = isFollowed
+      ? await deleteFollow(currentUser?.id ?? 1, Number(profileId))
+      : await createFollow(currentUser?.id ?? 1, Number(profileId));
+    if (res.status === 200) setIsFollowed(!isFollowed);
+  };
+  console.log(currentUser);
   return (
     <div className="profile-inner_container">
       <div className="flex xl:flex-row flex-col max-xl:items-center flex-1 gap-7">
@@ -54,17 +71,31 @@ const ProfileInfo: React.FC<Props> = props => {
         <div className="flex flex-col flex-1 justify-between md:mt-2">
           <div className="flex flex-col w-full">
             <h1 className="text-center xl:text-left h3-bold md:h1-semibold w-full">
-              {user.lastName} {user.firstName}
+              {user?.lastName} {user?.firstName}
             </h1>
             <p className="small-regular md:body-medium text-light-3 text-center xl:text-left">
-              @{user.username}
+              @{user?.username}
             </p>
           </div>
 
           <div className="flex gap-8 mt-10 items-center justify-center xl:justify-start flex-wrap z-20">
-            <StatBlock value={15} label="Posts" />
-            <StatBlock value={20} label="Followers" />
-            <StatBlock value={20} label="Following" />
+            <StatBlock value={user?._count.userPosts ?? 0} label="Posts" />
+            <DialogSearch
+              title={'Follower'}
+              queryKey={QUERY_KEYS.GET_INFINITE_FOLLOWERS}
+              type={'follower'}
+              userId={+profileId}
+            >
+              <StatBlock value={user?._count?.followedBy ?? 0} label="Followers" />
+            </DialogSearch>
+            <DialogSearch
+              title={'Following'}
+              queryKey={QUERY_KEYS.GET_INFINITE_FOLLOWINGS}
+              type={'following'}
+              userId={+profileId}
+            >
+              <StatBlock value={user?._count?.following ?? 0} label="Following" />
+            </DialogSearch>
           </div>
 
           <p className="small-medium md:base-medium text-center xl:text-left mt-7 max-w-screen-sm">
@@ -75,28 +106,48 @@ const ProfileInfo: React.FC<Props> = props => {
 
         <div className="flex  gap-4 py-4">
           <div className={`flex flex-row gap-4 `}>
-            {user.id !== currentUser?.id ? (
+            {user?.id !== currentUser?.id ? (
               <>
                 <Button type="button" className="!h-10 !w-40  shad-button_primary px-8">
                   <ChatBubbleIcon width={20} height={20} />
                   <span>Message</span>
                 </Button>
-                <Button type="button" className="!h-10 !w-40 shad-button_primary px-8">
-                  <Crosshair2Icon width={20} height={20} />
-                  Follow
-                </Button>
+                {isFollowed ? (
+                  <ConfirmDialog
+                    title={'Confirm Unfollow Account'}
+                    description={'Are you sure you want to unfollow this user?'}
+                    onOk={handleFollow}
+                  >
+                    <Button
+                      type="button"
+                      className="!h-10 !w-40 !bg-background shad-button_primary px-8"
+                    >
+                      <Crosshair2Icon width={20} height={20} />
+                      Followed
+                    </Button>
+                  </ConfirmDialog>
+                ) : (
+                  <Button
+                    type="button"
+                    className="!h-10 !w-40 shad-button_primary px-8"
+                    onClick={handleFollow}
+                  >
+                    <Crosshair2Icon width={20} height={20} />
+                    Follow
+                  </Button>
+                )}
               </>
             ) : (
               <>
                 <Link
-                  href={`/${ROUTES.PROFILE.key}/${user.id}/update`}
+                  href={`/${ROUTES.PROFILE.key}/${user?.id}/update`}
                   className={`!h-10 !w-44 shad-button_primary flex-center px-8 rounded-md`}
                 >
                   <Pencil2Icon width={20} height={20} />
                   <p className="flex whitespace-nowrap base-medium">Edit Profile</p>
                 </Link>
 
-                <UpdateUserNameForm username={user.username} id={user.id} />
+                <UpdateUserNameForm username={user?.username} id={user?.id} />
               </>
             )}
 

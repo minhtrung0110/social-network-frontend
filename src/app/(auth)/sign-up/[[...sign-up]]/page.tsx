@@ -2,7 +2,7 @@
 // @ts-ignore
 import React from 'react';
 import Image from 'next/image';
-import { ROUTES } from '@/constrants/route';
+import { ROUTES } from '@/constraints/route';
 import Link from 'next/link';
 import SignupForm from '@/app/(auth)/components/organisms/SignupForm';
 import { GoogleIcon } from '@/components/atoms/icons';

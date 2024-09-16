@@ -4,7 +4,7 @@ import React, { memo, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { CommentObj } from '@/schema/comment.schema';
 import Link from 'next/link';
-import { ROUTES } from '@/constrants/route';
+import { ROUTES } from '@/constraints/route';
 import ProfileMini from '@/components/molecules/ProfileMini';
 import UserAdvance from '@/components/organisms/UserAdvance.tsx';
 import { multiFormatDateString } from '@/utils/date';

@@ -22,11 +22,11 @@ import savedApiRequest from '@/api/saved';
 import { getDateTimePost, multiFormatDateString } from '@/utils/date';
 
 // Constrants
-import { ROUTES } from '@/constrants/route';
+import { ROUTES } from '@/constraints/route';
 
 // Types
 import { Post } from '@/models/post';
-import { ACTIONS_POST_CARD } from '@/constrants/common';
+import { ACTIONS_POST_CARD } from '@/constraints/common';
 
 interface PostCardProps {
   post: Post;
@@ -35,7 +35,7 @@ interface PostCardProps {
 export const PostCard: React.FC<PostCardProps> = (props) => {
   // State
   const { post } = props;
-  const listTags = post.tags.includes(',') ? post.tags.split(',') : [post.tags];
+  const listTags = post?.tags?.includes(',') ? post?.tags?.split(',') : [post?.tags];
   const { user } = useAppContext();
   const listMoreActions = ACTIONS_POST_CARD;
   // const { data: profile, status } = useGetUserById(post.id);
@@ -63,7 +63,7 @@ export const PostCard: React.FC<PostCardProps> = (props) => {
 
       <div className='header-post-card flex-between '>
         <div className='flex items-center gap-3 ml-1'>
-          <Link href={`/${ROUTES.PROFILE.key}/${post.user.id}`}>
+          <Link href={`/${ROUTES.PROFILE.key}/${post?.user.id}`}>
             {
               post.user?.avatar ?
                 <AvatarUser story={null} firstName={post?.user.firstName} avatar={post.user.avatar} type={'post'} />
@@ -72,7 +72,7 @@ export const PostCard: React.FC<PostCardProps> = (props) => {
           </Link>
 
           <div className='flex flex-row cursor-pointer items-center'>
-            <UserAdvance profile={<ProfileMini user={post.user} />}>
+            <UserAdvance profile={<ProfileMini user={post?.user} />}>
               <p className='base-medium lg:body-bold text-light-1 mr-1 '>
                 {post.user.username}
               </p>

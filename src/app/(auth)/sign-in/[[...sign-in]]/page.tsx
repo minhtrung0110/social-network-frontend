@@ -3,7 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import { GoogleIcon } from '@/components/atoms/icons';
 import Link from 'next/link';
-import { ROUTES } from '@/constrants/route';
+import { ROUTES } from '@/constraints/route';
 import SignInForm from '@/app/(auth)/components/organisms/SigninForm';
 import authApiRequest from '@/api/auth';
 import envConfig from '@/config/envConfig';

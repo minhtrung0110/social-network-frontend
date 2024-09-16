@@ -2,13 +2,14 @@
 // Libraries
 import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useGetInfinitePosts } from '@/queries/queries';
-import { PostCard } from '@/app/(home)/components/organisms/PostCard';
 import { TargetIcon } from '@radix-ui/react-icons';
 
 // Component
+import { PostCard } from '@/app/(home)/components/organisms/PostCard';
 
-// Style
+// Query
+import { useGetInfinitePosts } from '@/queries/queries';
+import { LoadingListPostCard } from '@/components/molecules/skeleton/ListPostCard';
 
 // Types
 
@@ -18,13 +19,10 @@ interface Props {
 
 // eslint-disable-next-line @next/next/no-async-client-component
 const NewFeed: React.FC<Props> = props => {
-  //const { data } = props;
   // State
   // Hooks
   const { ref, inView } = useInView();
   const { data: listPosts, hasNextPage, fetchNextPage, status } = useGetInfinitePosts();
-
-  // console.log('data posts: ', listPosts?.pages, 'status: ', status);
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -34,13 +32,19 @@ const NewFeed: React.FC<Props> = props => {
 
   return (
     <div className="home-posts">
-      <ul className="flex flex-col flex-1 gap-9 w-full ">
-        {listPosts?.pages?.map(page =>
-          page?.map(post => (
-            <li key={post?.id} className="flex justify-center w-full">
-              <PostCard post={post} />
-            </li>
-          )),
+      <ul className="flex flex-col flex-1  items-center gap-9 w-full ">
+        {status === 'pending' ? (
+          <LoadingListPostCard amount={2} />
+        ) : (
+          listPosts?.pages?.map(page =>
+            page?.map((post: any) => {
+              return (
+                <li key={post?.id} className="flex justify-center w-full">
+                  <PostCard post={post} />
+                </li>
+              );
+            }),
+          )
         )}
       </ul>
       {!hasNextPage && (

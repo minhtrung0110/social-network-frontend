@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 
 // Constants
-import { ROUTES } from '@/constrants/route';
+import { ROUTES } from '@/constraints/route';
 
 // Types
 import { CommentObj } from '@/schema/comment.schema';

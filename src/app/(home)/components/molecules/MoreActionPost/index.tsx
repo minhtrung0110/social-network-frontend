@@ -1,19 +1,16 @@
 // Libraries
 import React, { ReactNode } from 'react';
+
+// Component
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { MoreActionType } from '@/types/common';
-
-// Component
-
 // Style
-
 // Types
-
+import { MoreActionType } from '@/types/common';
 
 interface Props {
   children: ReactNode,

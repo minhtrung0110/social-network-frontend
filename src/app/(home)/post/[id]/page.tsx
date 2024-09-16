@@ -22,8 +22,11 @@ const PostDetailPage: React.FC<Props> = async (props) => {
   const cookie = cookies();
   const res = await postApiRequest.getById(id, cookie.get('sessionToken')?.value ?? '');
   const postDetail = res.data;
-  const { data: listPost } = await postApiRequest.getByCondition(postDetail.user.id, cookie.get('sessionToken')?.value ?? '');
-  const listPostRelated = listPost.filter(p => p.id !== postDetail.id);
+  const { data: listPost } = await postApiRequest.getCompactByCondition({
+    userId: postDetail.user.id,
+    compact: true,
+  }, cookie.get('sessionToken')?.value ?? '');
+  const listPostRelated = listPost.filter((p: any) => p.id !== postDetail.id);
 
   return (
     <div className='post_details-container'>

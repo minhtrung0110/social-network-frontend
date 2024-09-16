@@ -7,7 +7,7 @@ import Link from 'next/link';
 // Component
 // Style
 // Constants
-import { BOTTOM_SIDE_BAR_LINK } from '@/constrants/sidebar';
+import { BOTTOM_SIDE_BAR_LINK } from '@/constraints/sidebar';
 
 const BottomBar: React.FC = () => {
   const pathname = usePathname();

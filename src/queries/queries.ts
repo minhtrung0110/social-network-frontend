@@ -1,6 +1,6 @@
 import { Updater, useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import userApiRequest from '@/api/user';
-import { CACHE_TIME, QUERY_KEYS, STALE_TIME } from '@/constrants/queries';
+import { CACHE_TIME, QUERY_KEYS, STALE_TIME } from '@/constraints/queries';
 import { SearchParams } from '@/types/common';
 import commentApiRequest from '@/api/comment';
 import { Comment, CreateComment } from '@/schema/comment.schema';
@@ -11,6 +11,7 @@ import likeApiRequest from '@/api/like';
 import { CreateLike, Like } from '@/schema/like.schema';
 import savedApiRequest from '@/api/saved';
 import { Saved } from '@/schema/saved.scheme';
+import followApiRequest from '@/api/follow';
 
 /*------------------USER--------------------------*/
 export const getUserProfileById = async (id: number) => {
@@ -25,12 +26,7 @@ export const useGetUserById = (id: number) => {
     staleTime: STALE_TIME,
   });
 };
-export const useGetUserByUsername = (searchParams: SearchParams, session: string) => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.GET_USERS_BY_USERNAME, searchParams, session],
-    queryFn: () => userApiRequest.searchUser(searchParams, session),
-  });
-};
+
 export const useUpdateUsername = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -67,21 +63,36 @@ export const useUploadImage = () => {
   });
 };
 /*--------------------POST----------------------*/
-export const useGetPost = (searchParams: SearchParams, session: string) => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.GET_USERS_BY_USERNAME, searchParams, session],
-    queryFn: () => userApiRequest.searchUser(searchParams, session),
-  });
-};
+
 const handleGetInfinitePosts = async (page: number = 1) => {
   const searchParams = { page, perPage: 2 };
   const result = await postApiRequest.getInfinite(searchParams);
+  if (result.status === 200) return result.data;
+};
+const handleGetInfiniteCompactPosts = async (userId: number, page: number = 1) => {
+  const searchParams = { userId, compact: true, page, perPage: 6 };
+  const result = await postApiRequest.getCompactPosts(searchParams);
   if (result.status === 200) return result.data;
 };
 export const useGetInfinitePosts = () => {
   return useInfiniteQuery({
     queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
     queryFn: ({ pageParam }) => handleGetInfinitePosts(pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      // console.log('lastPagePost:', lastPage, lastPage.length < 1);
+      if (lastPage.length === 2) return Number(lastPageParam) + 1;
+      return undefined;
+    },
+    // getPreviousPageParam: (firstPage, allPages, firstPageParam, allPageParams) =>
+    //   firstPage.prevCursor,
+  });
+};
+
+export const useGetInfiniteCompactPosts = (userId: number) => {
+  return useInfiniteQuery({
+    queryKey: [QUERY_KEYS.GET_INFINITE_COMPACT_POSTS],
+    queryFn: ({ pageParam }) => handleGetInfiniteCompactPosts(userId, pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
       // console.log('lastPagePost:', lastPage, lastPage.length < 1);
@@ -104,6 +115,57 @@ export const useUpdatePost = () => {
         queryKey: [QUERY_KEYS.GET_POST_BY_ID, data?.id],
       });
     },
+  });
+};
+/*--------------------FOLLOW------------------------*/
+const handleGetInfiniteFollow = async (
+  userId: number,
+  type: string = 'follower',
+  page: number = 1,
+) => {
+  const searchParams = { page, perPage: 6 };
+  const result = await followApiRequest.getFollow(userId, type, searchParams);
+  if (result.status === 200) return result.data;
+};
+export const useGetInfiniteFollows = (
+  queryKey: QUERY_KEYS.GET_INFINITE_FOLLOWERS,
+  userId: number,
+  type: string = 'follower',
+) => {
+  return useInfiniteQuery({
+    queryKey: [queryKey],
+    queryFn: ({ pageParam }) => handleGetInfiniteFollow(userId, type, pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      // console.log('lastPagePost:', lastPage, lastPage.length < 1);
+      if (lastPage.length === 2) return Number(lastPageParam) + 1;
+      return undefined;
+    },
+    // getPreviousPageParam: (firstPage, allPages, firstPageParam, allPageParams) =>
+    //   firstPage.prevCursor,
+  });
+};
+const handleSearchFollow = async (value: string, userId: number, type: string = 'follower') => {
+  const res = await followApiRequest.getFollow(userId, type, { search: value });
+  if (res.status === 200) return res.data;
+};
+export const useSearchFollow = (searchTerm: string, userId: number, type: string = 'follower') => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.SEARCH_USERS, searchTerm],
+    queryFn: () => handleSearchFollow(searchTerm, userId, type),
+    enabled: !!searchTerm,
+  });
+};
+/* ------------------USER ---------------------*/
+const handleSearchUsers = async (value: string) => {
+  const res = await userApiRequest.searchUser({ searchValue: value });
+  if (res.status === 200) return res.data;
+};
+export const useSearchUsers = (searchTerm: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.SEARCH_USERS, searchTerm],
+    queryFn: () => handleSearchUsers(searchTerm),
+    enabled: !!searchTerm,
   });
 };
 /*--------------------COMMENT-------------------*/

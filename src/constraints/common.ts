@@ -191,7 +191,8 @@ export const TEMP_LIST_POST = [
     id: 5,
     caption: 'Beach saide',
     tags: 'vintage, beach',
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1715249630510_261167.jpg?alt=media',
+    imageUrl:
+      'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1715249630510_261167.jpg?alt=media',
     scope: 'public',
     _count: {
       Like: 1,
@@ -205,7 +206,8 @@ export const TEMP_LIST_POST = [
     id: 4,
     caption: 'The beautiful of the sea. You and me . Love you so much ',
     tags: 'vintage, beach',
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1714676402941_7.jpg?alt=media',
+    imageUrl:
+      'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1714676402941_7.jpg?alt=media',
     scope: 'public',
     _count: {
       Like: 1,
@@ -219,7 +221,8 @@ export const TEMP_LIST_POST = [
     id: 6,
     caption: 'Tan Tuc Highschool Memmories ',
     tags: 'highschool',
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1714365913655_MixIMG.jpeg?alt=media',
+    imageUrl:
+      'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1714365913655_MixIMG.jpeg?alt=media',
     scope: 'public',
     _count: {
       Like: 2,
@@ -231,9 +234,11 @@ export const TEMP_LIST_POST = [
   },
   {
     id: 2,
-    caption: 'The SF90 Stradale delivers the most efficient aerodynamic performance of any road-going car in Ferrari\'s history, making it comparable only to that of the LaFerrari supercar.',
+    caption:
+      'The SF90 Stradale delivers the most efficient aerodynamic performance of any road-going car in Ferrari\'s history, making it comparable only to that of the LaFerrari supercar.',
     tags: 'hy',
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1714677661085_wp4570855.jpg?alt=media',
+    imageUrl:
+      'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1714677661085_wp4570855.jpg?alt=media',
     scope: 'public',
     _count: {
       Like: 3,
@@ -244,3 +249,88 @@ export const TEMP_LIST_POST = [
     status: 1,
   },
 ];
+
+export const ListStories = [
+  {
+    id: 1,
+    username: 'dh.baotrung',
+    firstName: 'Trung',
+    lastName: 'Minh',
+    avatar: 'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1713982059299_3592.jpg?alt=media',
+    stories: [
+      {
+        id: 1,
+        source: 'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1714365913655_MixIMG.jpeg?alt=media',
+        music: '',
+        type: 'image',
+        isViewed: false,
+        createdAt: '2024-05-09T10:14:55.722Z',
+      },
+      {
+        id: 2,
+        source: 'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1713982059299_3592.jpg?alt=media',
+        music: '',
+        type: 'image',
+        isViewed: false,
+        createdAt: '2024-05-09T10:14:55.722Z',
+      },
+      {
+        id: 3,
+        source: 'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1714365913655_MixIMG.jpeg?alt=media',
+        music: '',
+        type: 'image',
+        isViewed: false,
+        createdAt: '2024-05-09T10:14:55.722Z',
+      },
+      {
+        id: 4,
+        source: 'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1713982059299_3592.jpg?alt=media',
+        music: '',
+        type: 'image',
+        isViewed: false,
+        createdAt: '2024-05-09T10:14:55.722Z',
+      },
+    ],
+  },
+  // {
+  //   id: 13,
+  //   username: 'minhtrung4367',
+  //   firstName: 'Trung',
+  //   lastName: '',
+  //   avatar: 'https://lh3.googleusercontent.com/a/ACg8ocIckaxeNj3XQX0JvK_kAWyDekEHEQLV4Jd-hd_e9fzG-CTQsgw=s96-c',
+  //   stories: [
+  //     {
+  //       id: 1,
+  //       username: 'dh.baotrung',
+  //       avatar: 'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1713982059299_3592.jpg?alt=media',
+  //       source: 'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1714365913655_MixIMG.jpeg?alt=media',
+  //       music: '',
+  //       isViewed: false,
+  //       createdAt: '2024-05-09T10:14:55.722Z',
+  //     },
+  //
+  //   ],
+  //
+  // },
+  // {
+  //   id: 12,
+  //   username: 'thokuteo',
+  //   firstName: 'Trung',
+  //   lastName: '',
+  //   avatar: 'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1714065670486_42363032_116216219344284_1732310080281378816_n.jpg?alt=media',
+  //   stories: [
+  //     {
+  //       id: 1,
+  //       username: 'dh.baotrung',
+  //       avatar: 'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1713982059299_3592.jpg?alt=media',
+  //       source: 'https://firebasestorage.googleapis.com/v0/b/social-network-storage-f6ab6.appspot.com/o/1714365913655_MixIMG.jpeg?alt=media',
+  //       music: '',
+  //       isViewed: false,
+  //       createdAt: '2024-05-09T10:14:55.722Z',
+  //     },
+  //
+  //   ],
+  // },
+];
+
+

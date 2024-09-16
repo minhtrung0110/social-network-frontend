@@ -32,11 +32,11 @@ const CardImage: React.FC<CardImageProps> = props => {
       <div className="absolute z-20 flex-center rounded-[6px] inset-0 bg-gray-600 opacity-0 hover:opacity-50 transition-opacity duration-300">
         <span className="body-bold flex-center flex-row brightness-150 mr-2">
           <HeartFilledIcon width={28} height={28} />
-          <span className={'ml-[5px]'}>{post._count.Like}</span>
+          <span className={'ml-[5px]'}>{post?._count?.Like}</span>
         </span>
         <span className="body-bold flex-center flex-row brightness-150">
           <ChatBubbleIcon width={28} height={28} />
-          <span className={'ml-[5px]'}>{post._count.comments}</span>
+          <span className={'ml-[5px]'}>{post?._count?.comments}</span>
         </span>
       </div>
       <Image

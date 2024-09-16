@@ -10,7 +10,7 @@ import UserAdvance from '@/components/organisms/UserAdvance.tsx';
 import ProfileMini from '@/components/molecules/ProfileMini';
 
 // Constants
-import { ROUTES } from '@/constrants/route';
+import { ROUTES } from '@/constraints/route';
 
 // Types
 

@@ -12,7 +12,9 @@ interface PostState {
 interface AppContextType {
   user: FullUser | null;
   sessionToken: string | null;
+  showStoryMode: boolean;
   setSessionToken: (token: string | null) => void;
+  setShowStoryMode: (data: boolean) => void;
   setRefCommentPost: (ref: React.MutableRefObject<HTMLTextAreaElement | null>) => void;
   setReplyCommentPost: (id: number | null) => void;
   setUser: (user: FullUser | null) => void;
@@ -26,7 +28,9 @@ const AppContext = createContext<AppContextType>({
     comment_ref: null,
     comment_reply: null,
   },
+  showStoryMode: false,
   setUser: () => {},
+  setShowStoryMode: () => {},
   setRefCommentPost: () => {},
   setReplyCommentPost: () => {},
   setSessionToken: () => {},
@@ -47,7 +51,7 @@ export default function AppProvider({
 }) {
   const [user, setUser] = useState<User | null>(userProp);
   const [sessionToken, setSessionToken] = useState<string | null>(initialSessionToken);
-  // const [commentRef,setCommentRef] = useState<HTMLElement|null>(null);
+  const [showStoryMode, setShowStoryMode] = useState<boolean>(false);
   // const [replyComment,setReplyComment] = useState<number>(null)
   const [postState, setPostState] = useState<PostState>({ comment_ref: null, comment_reply: null });
   //console.log(AppContext);
@@ -71,7 +75,9 @@ export default function AppProvider({
       value={{
         user,
         sessionToken,
+        showStoryMode,
         setSessionToken,
+        setShowStoryMode,
         setRefCommentPost,
         setReplyCommentPost,
         setUser,

@@ -8,10 +8,11 @@ import Loader from '@/components/atoms/Loader';
 import TopCreator from '@/app/(home)/components/organisms/TopCreator';
 import ProfileInstant from '@/app/(home)/components/molecules/ProfileInstant';
 import TopStory from '@/app/(home)/components/organisms/TopStory';
+import { Separator } from '@/components/ui/separator';
 
 // Api
 import userApiRequest from '@/api/user';
-import { Separator } from '@/components/ui/separator';
+import { ListStories } from '@/constraints/common';
 
 
 interface Props {
@@ -23,12 +24,12 @@ const HomePage: React.FC<Props> = async (props) => {
   const sessionToken = cookieStore.get('sessionToken');
   const { data: listUsers } = await userApiRequest.getAllUsers(sessionToken?.value ?? '');
 
-  const listUserStories = listUsers?.data?.map(item => ({ ...item, story: true }));
+  const listUserStories = listUsers?.map((item: any) => ({ ...item, story: true }));
 
   return (
     <div className={'flex flex-1'}>
       <div className={'home-container'}>
-        <TopStory listUserStories={listUserStories} />
+        <TopStory listUserStories={ListStories} />
         <Suspense fallback={<Loader />}>
           <NewFeed />
         </Suspense>
